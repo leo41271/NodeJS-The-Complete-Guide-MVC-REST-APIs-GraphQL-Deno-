@@ -1,10 +1,9 @@
-const mysql = require('mysql2');
+const Sequelize = require('sequelize').Sequelize;
 
-const pool = mysql.createPool({
+/** CHANGE USERNAME AND PASSWORD */
+const sequelize = new Sequelize('node-complete', 'max', 'secret', {
+    dialect: 'mysql',
     host: 'localhost',
-    user: 'max', // REPLACE
-    database: 'node-complete',
-    password: 'secret', // REPLACE
 });
 
-module.exports = pool.promise();
+module.exports = sequelize;
