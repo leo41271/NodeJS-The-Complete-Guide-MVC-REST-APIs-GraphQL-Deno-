@@ -14,7 +14,7 @@ exports.postAddProduct = (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
     req.user
-        .createProduct({
+        .createProduct({ // createProduct 方法名稱以及大寫的 Product 是由 Sequelize 自動生成的 。 透過 定義關聯 User.hasMany(Product);Product.belongsTo(User); 達到
             title: title,
             price: price,
             imageUrl: imageUrl,
