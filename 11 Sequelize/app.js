@@ -57,8 +57,17 @@ sequelize
         }
         return user;
     })
+    /** PREVENT DUPLICATE CART CREATION */
     .then((user) => {
-        // console.log(user);
+        return user.getCart().then((cart) => {
+            if (!cart) {
+                return user.createCart();
+            }
+            return cart;
+        });
+    })
+    .then((cart) => {
+        // console.log(cart);
         app.listen(3000);
     })
     .catch((err) => {
