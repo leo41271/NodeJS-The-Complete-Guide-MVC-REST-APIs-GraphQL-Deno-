@@ -153,7 +153,7 @@ exports.postOrder = (req, res, next) => {
         })
         .catch((err) => console.log(err));
 };
-// 上述 使用 await 改善 (但程式並沒有實際跑過 gpt) 不用 再次使用setProducts
+// 上述 使用 await 改善 (但程式並沒有實際跑過 gpt) 不用 再次使用setProducts // 之後的課程單元會有說到!!
 // exports.postOrder = async (req, res, next) => {
 //     try {
 //         let fetchedCart = await req.user.getCart(); // 取得購物車

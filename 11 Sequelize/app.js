@@ -80,3 +80,13 @@ sequelize
     .catch((err) => {
         console.log(err);
     });
+
+    /**
+     * 後端啟動專案的順序 、 從網頁的網址打進來的路徑
+     * app.js(基礎宣告 路由 後端與DB相連 建立監聽) > (sequelize> DB (util file))
+     * MVC (m v c(routes controllers))
+     * > routes file (get req not use yet。req use in controllers)
+     * > controllers file (models file)。  (use req data and finally res page)
+     * > views file  (ejs part not really important) ejs part: views/(admin includes shop)
+     * > public file
+     */
