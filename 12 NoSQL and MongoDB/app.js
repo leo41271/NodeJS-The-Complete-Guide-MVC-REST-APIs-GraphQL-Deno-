@@ -35,5 +35,9 @@ app.use(errorController.get404);
 mongoConnect(() => {
     app.listen(3000);
 });
-
+// mongoConnect(
+// () => { app.listen(3000); } 先連線成功後 接下來這段才會。 箭頭函式
+// );
+// mongoConnect( app.listen(3000) ); ?? 因為這樣寫會立即執行 app.listen(3000)
+// 回呼函式的正確用法: 需要傳遞一個函式（而不是函式的返回值）給 mongoConnect。
 // mongoDB DOC https://www.mongodb.com/docs/manual/ 

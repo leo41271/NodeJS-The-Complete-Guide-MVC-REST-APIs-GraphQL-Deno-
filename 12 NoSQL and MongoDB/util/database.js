@@ -13,7 +13,7 @@ const mongoConnect = (callback) => {
         .then((client) => {
             console.log('Connected!');
             _db = client.db();
-            callback();
+            callback(); // 透過此處的 callback 在成功連線後 能繼續後續的其他操作。
         })
         .catch((err) => {
             console.log(err);
@@ -21,9 +21,9 @@ const mongoConnect = (callback) => {
         });
 };
 
-const getDb = () => {
+const getDb = () => { // 其他資料庫操作
     if (_db) {
-        return _db;
+        return _db; 
     }
     throw 'No database found!';
 };
