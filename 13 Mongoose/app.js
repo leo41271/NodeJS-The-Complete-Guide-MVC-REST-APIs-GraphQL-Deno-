@@ -1,10 +1,10 @@
 const path = require('path');
 
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
 const app = express();
@@ -32,6 +32,14 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
-    app.listen(3000);
-});
+/** REPLACE CONNECTION STRING IF USING ATLAS
+ *  "mongodb+srv://<username>:<password>@<cluster-id>.mongodb.net/<dbName>?retryWrites=true&authSource=admin"
+ */
+mongoose
+    .connect('mongodb://127.0.0.1:27017/shop?retryWrites=true&authSource=admin')
+    .then((result) => {
+        app.listen(3000);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
