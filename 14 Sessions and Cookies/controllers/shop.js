@@ -47,7 +47,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-    res.session.user
+    req.user
         .populate('cart.items.productId')
         /** NO execPopulate method -- removed */
         .then((user) => {
@@ -66,7 +66,7 @@ exports.postCart = (req, res, next) => {
     const prodId = req.body.productId;
     Product.findById(prodId)
         .then((product) => {
-            return res.session.user.addToCart(product);
+            return req.user.addToCart(product);
         })
         .then((result) => {
             console.log(result);
@@ -76,7 +76,7 @@ exports.postCart = (req, res, next) => {
 
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    res.session.user
+    req.user
         .removeFromCart(prodId)
         .then(() => {
             res.redirect('/cart');
@@ -85,7 +85,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-    res.session.user
+    req.user
         .populate('cart.items.productId')
         /** NO execPopulate method -- removed */
         .then((user) => {
@@ -98,15 +98,15 @@ exports.postOrder = (req, res, next) => {
             });
             const order = new Order({
                 user: {
-                    name: res.session.user.name,
-                    userId: res.session.user,
+                    name: req.user.name,
+                    userId: req.user,
                 },
                 products: products,
             });
             return order.save();
         })
         .then((result) => {
-            return res.session.user.clearCart();
+            return req.user.clearCart();
         })
         .then((result) => {
             res.redirect('/orders');
@@ -115,7 +115,7 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-    Order.find({ 'user.userId': res.session.user._id })
+    Order.find({ 'user.userId': req.user._id })
         .then((orders) => {
             res.render('shop/orders', {
                 path: '/orders',
