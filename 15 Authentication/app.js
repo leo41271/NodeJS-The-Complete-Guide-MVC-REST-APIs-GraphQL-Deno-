@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const csrf = require('csurf');
+/** CSRF-CSRF PACKAGE */
+const { doubleCsrf: csrf } = require('csrf-csrf');
+const cookieParser = require('cookie-parser');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -21,7 +23,10 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions',
 });
-const csrfProtection = csrf();
+const csrfProtection = csrf({
+    getSecret: () => 'supersecret',
+    getTokenFromRequest: (req) => req.body._csrf,
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -40,7 +45,9 @@ app.use(
         store: store,
     })
 );
-app.use(csrfProtection);
+/** CSRF-CSRF PACKAGE */
+app.use(cookieParser('supersecret'));
+app.use(csrfProtection.doubleCsrfProtection);
 
 app.use((req, res, next) => {
     if (!req.session.user) {
