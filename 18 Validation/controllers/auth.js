@@ -78,7 +78,7 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-    const confirmPassword = req.body.confirmPassword;
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors.array());
@@ -88,42 +88,30 @@ exports.postSignup = (req, res, next) => {
             errorMessage: errors.array()[0].msg,
         });
     }
-    User.findOne({ email: email })
-        .then((userDoc) => {
-            if (userDoc) {
-                req.flash(
-                    'error',
-                    'E-Mail exists already, please pick a different one.'
-                );
-                return res.redirect('/signup');
-            }
-            return bcrypt
-                .hash(password, 12)
-                .then((hashedPassword) => {
-                    const user = new User({
-                        email: email,
-                        password: hashedPassword,
-                        cart: { items: [] },
-                    });
-                    return user.save();
-                })
-                .then((result) => {
-                    res.redirect('/login');
-                    return tranporter.sendMail({
-                        to: email,
-                        /** MUST MATCH VERIFIED SENDER
-                         *  ============================
-                         *  see "Sender Authentication" in
-                         *  Sendgrid dashboard
-                         */
-                        from: 'test@test.com',
-                        subject: 'Signup succeeded!',
-                        html: '<h1>You sucessfully signed up!</h1>',
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+
+    bcrypt
+        .hash(password, 12)
+        .then((hashedPassword) => {
+            const user = new User({
+                email: email,
+                password: hashedPassword,
+                cart: { items: [] },
+            });
+            return user.save();
+        })
+        .then((result) => {
+            res.redirect('/login');
+            return tranporter.sendMail({
+                to: email,
+                /** MUST MATCH VERIFIED SENDER
+                 *  ============================
+                 *  see "Sender Authentication" in
+                 *  Sendgrid dashboard
+                 */
+                from: 'test@test.com',
+                subject: 'Signup succeeded!',
+                html: '<h1>You sucessfully signed up!</h1>',
+            });
         })
         .catch((err) => {
             console.log(err);
