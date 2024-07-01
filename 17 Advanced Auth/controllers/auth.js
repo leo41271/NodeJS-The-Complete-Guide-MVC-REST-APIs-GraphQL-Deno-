@@ -139,3 +139,43 @@ exports.getReset = (req, res, next) => {
         errorMessage: message,
     });
 };
+
+exports.postReset = (req, res, next) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/reset');
+        }
+        const token = buffer.toString('hex');
+        User.findOne({ email: req.body.email })
+            .then((user) => {
+                if (!user) {
+                    req.flash('error', 'No account with that email found.');
+                    return res.redirect('/');
+                }
+                user.resetToken = token;
+                user.resetTokenExpiration = Date.now() + 3600000;
+                return user.save();
+            })
+            .then((result) => {
+                res.redirect('/');
+                tranporter.sendMail({
+                    to: req.body.email,
+                    /** MUST MATCH VERIFIED SENDER
+                     *  ============================
+                     *  see "Sender Authentication" in
+                     *  Sendgrid dashboard
+                     */
+                    from: 'test@test.com',
+                    subject: 'Password Reset',
+                    html: `
+                    <p>You requested a password reset</p>
+                    <p>Click the <a href='http://localhost:3000/reset/${token}'>link</a> to set a new password.</p>
+                `,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
+};
