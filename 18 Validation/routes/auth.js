@@ -1,4 +1,6 @@
 const express = require('express');
+/** note we are importing from the base package */
+const { check } = require('express-validator');
 
 const authController = require('../controllers/auth');
 
@@ -10,7 +12,7 @@ router.get('/signup', authController.getSignup);
 
 router.post('/login', authController.postLogin);
 
-router.post('/signup', authController.postSignup);
+router.post('/signup', check('email').isEmail(), authController.postSignup);
 
 router.post('/logout', authController.postLogout);
 
