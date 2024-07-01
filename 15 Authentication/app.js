@@ -8,6 +8,8 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 /** CSRF-CSRF PACKAGE */
 const { doubleCsrf: csrf } = require('csrf-csrf');
 const cookieParser = require('cookie-parser');
+/** ================ */
+const flash = require('connect-flash');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -48,6 +50,8 @@ app.use(
 /** CSRF-CSRF PACKAGE */
 app.use(cookieParser('supersecret'));
 app.use(csrfProtection.doubleCsrfProtection);
+/** ================ */
+app.use(flash());
 
 app.use((req, res, next) => {
     if (!req.session.user) {
