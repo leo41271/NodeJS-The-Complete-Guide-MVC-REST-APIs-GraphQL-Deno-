@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const feedRoutes = require('./routes/feed');
 
@@ -23,4 +24,14 @@ app.use((req, res, next) => {
 
 app.use('/feed', feedRoutes);
 
-app.listen(8080);
+/** REPLACE CONNECTION STRING IF USING ATLAS
+ *  "mongodb+srv://<username>:<password>@<cluster-id>.mongodb.net/<dbName>?retryWrites=true&authSource=admin"
+ */
+mongoose
+    .connect(
+        'mongodb://127.0.0.1:27017/messages?retryWrites=true&authSource=admin'
+    )
+    .then(() => {
+        app.listen(8080);
+    })
+    .catch((err) => console.log(err));
