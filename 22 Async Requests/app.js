@@ -26,10 +26,19 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions',
 });
+/** CSRF-CSRF PACKAGE */
 const csrfProtection = csrf({
     getSecret: () => 'supersecret',
-    getTokenFromRequest: (req) => req.body._csrf,
+    getTokenFromRequest: (req) => {
+        if (req.body._csrf) {
+            return req.body._csrf;
+        }
+        if (req.get('csrf-token') !== '') {
+            return req.get('csrf-token');
+        }
+    },
 });
+/** ====================== */
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
