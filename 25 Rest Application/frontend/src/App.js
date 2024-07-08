@@ -117,6 +117,7 @@ class App extends Component {
             .then((resData) => {
                 console.log(resData);
                 this.setState({ isAuth: false, authLoading: false });
+                /** CUSTOM HOC -- withRouter */
                 this.props.navigate('/');
             })
             .catch((err) => {
