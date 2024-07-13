@@ -9,6 +9,10 @@ const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
 
 const app = express();
+/** SOCKET-IO CONFIGURATION */
+const http = require('http');
+const server = http.createServer(app);
+/** ======================= */
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -71,6 +75,18 @@ mongoose
         'mongodb://127.0.0.1:27017/messages?retryWrites=true&authSource=admin'
     )
     .then(() => {
-        app.listen(8080);
+        /** SEE LINES 12-15 -- UPDATED CONFIGURATION */
+        const { Server } = require('socket.io');
+        const io = new Server(server, {
+            cors: {
+                origin: '*',
+            },
+        });
+        io.on('connection', (socket) => {
+            console.log('Client connected.');
+        });
+        /** ======================================== */
+        /** LISTEN TO CUSTOM SERVER INSTANCE */
+        server.listen(8080);
     })
     .catch((err) => console.log(err));
