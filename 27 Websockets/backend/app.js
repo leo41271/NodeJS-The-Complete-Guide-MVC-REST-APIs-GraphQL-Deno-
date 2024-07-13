@@ -76,12 +76,7 @@ mongoose
     )
     .then(() => {
         /** SEE LINES 12-15 -- UPDATED CONFIGURATION */
-        const { Server } = require('socket.io');
-        const io = new Server(server, {
-            cors: {
-                origin: '*',
-            },
-        });
+        const io = require('./socket').init(server);
         io.on('connection', (socket) => {
             console.log('Client connected.');
         });
