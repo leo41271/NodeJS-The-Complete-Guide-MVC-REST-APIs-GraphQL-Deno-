@@ -4,15 +4,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
-
-const feedRoutes = require('./routes/feed');
-const authRoutes = require('./routes/auth');
+/** UPDATED CONFIG
+ *  express-graphql => graphql-http
+ *  and express-graphiql-explorer (graphiql)
+ */
+const grapqlHttp = require('graphql-http/lib/use/express');
+const graphiql = require('express-graphiql-explorer');
+/** ================================== */
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 const app = express();
-/** SOCKET-IO CONFIGURATION */
-const http = require('http');
-const server = http.createServer(app);
-/** ======================= */
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -56,8 +58,26 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/feed', feedRoutes);
-app.use('/auth', authRoutes);
+/** EXPRESS-GRAPHIQL-EXPLORER PACKAGE */
+/** note: /graphiql endpoint */
+app.use(
+    '/graphiql',
+    graphiql({
+        graphQlEndpoint: '/graphql',
+        defaultQuery: `query MyQuery {}`,
+    })
+);
+/** ================================= */
+
+/** GRAPHQL-HTTP CONFIGURATION */
+app.all('/graphql', (req, res) =>
+    grapqlHttp.createHandler({
+        schema: graphqlSchema,
+        rootValue: graphqlResolver,
+        context: { req, res },
+    })(req, res)
+);
+/** ========================== */
 
 app.use((error, req, res, next) => {
     console.log(error);
@@ -75,13 +95,6 @@ mongoose
         'mongodb://127.0.0.1:27017/messages?retryWrites=true&authSource=admin'
     )
     .then(() => {
-        /** SEE LINES 12-15 -- UPDATED CONFIGURATION */
-        const io = require('./socket').init(server);
-        io.on('connection', (socket) => {
-            console.log('Client connected.');
-        });
-        /** ======================================== */
-        /** LISTEN TO CUSTOM SERVER INSTANCE */
-        server.listen(8080);
+        app.listen(8080);
     })
     .catch((err) => console.log(err));
