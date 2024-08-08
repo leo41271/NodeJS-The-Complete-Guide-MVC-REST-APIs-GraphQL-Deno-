@@ -17,6 +17,8 @@ const User = require('./models/user');
 
 /** REPLACE CONNECTION STRING IF USING ATLAS
  *  "mongodb+srv://<username>:<password>@<cluster-id>.mongodb.net/<dbName>?retryWrites=true&authSource=admin"
+ * "mongodb+srv://userleo:<password>@cluster-name-mongo-lear.XXXXXXX.mongodb.net/?retryWrites=true&w=majority&appName=cluster-name-mongo-learn"
+ * MONGODB_URI 通常已經包含了資料庫名稱
  */
 const MONGODB_URI =
     'mongodb://127.0.0.1:27017/shop?retryWrites=true&authSource=admin';
