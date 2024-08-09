@@ -41,6 +41,23 @@ cookie-parser 是一個用於 Express 應用中的中介軟體，用來解析 HT
 + [cookie-parser](https://github.com/expressjs/cookie-parser)
 (解析 Cookie 標頭並使用以 cookie 名稱為鍵的物件填入 req.cookies。)
 + + [res.cookie(name, value [, options])](https://expressjs.com/en/5x/api.html#res.cookie) 設定cookies內容
+
+csrf  
+youtube : [CSRF 攻击和防御 - Web 安全常识](https://youtu.be/gEPii2y3ISQ?si=j_gvxTJKMFUFmyDh) good source。  
+前面 [15-06-adding-csrf](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/13ee5919c70a17a513611ceacf9ef6741a5c383f#comments) 這個篇章時 作者使用 [csurf](https://www.npmjs.com/package/csurf#example) `"csurf": "^1.11.0",` 已經被棄用，這裡改用 csrf-csrf 。
++ [csrf-csrf](https://github.com/Psifi-Solutions/csrf-csrf) 是透過[Double Submit Cookie Pattern.](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#alternative-using-a-double-submit-cookie-pattern) 方式實現 csrf 保護的，是 stateless無狀態 pattern。  
+Dos and Don'ts (表示使用準的的縮寫: 可作 與 不要作)
+其中的[配置 Configuration](https://github.com/Psifi-Solutions/csrf-csrf?tab=readme-ov-file#configuration)
+```js
+// 基本定義解構出來的屬性 
+const {
+    invalidCsrfTokenError, // This is just for convenience if you plan on making your own middleware.
+  generateToken, // Use this in your routes to provide a CSRF hash + token cookie and token.
+  validateRequest, // Also a convenience if you plan on making your own middleware.
+  doubleCsrfProtection, // This is the default CSRF protection middleware.
+} = doubleCsrf(doubleCsrfOptions);
+    // 所以我們會看到 app.use(csrfProtection.doubleCsrfProtection); 但前面定義卻沒有。
+```
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵
