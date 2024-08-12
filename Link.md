@@ -58,6 +58,16 @@ const {
 } = doubleCsrf(doubleCsrfOptions);
     // 所以我們會看到 app.use(csrfProtection.doubleCsrfProtection); 但前面定義卻沒有。
 ```
+Mongoose 是一個基於 Node.js 的 MongoDB 物件數據模型 (Object Data Modeling, ODM) 庫，它提供了一個在 Node.js 應用中對 MongoDB 進行操作的簡單而強大的方式。Mongoose 讓開發者可以用類似 SQL 的方式去定義和操作 MongoDB 的文檔數據模型，並且提供了豐富的功能來幫助處理數據的驗證、查詢、關聯等。
++ [mongoose homepage](https://mongoosejs.com/)
++ [git mongoose](https://github.com/Automattic/mongoose)
++ + [Support 問問題相關的支援](https://github.com/Automattic/mongoose?tab=readme-ov-file#support)  
++ [mongoosejs quick start](https://mongoosejs.com/docs/index.html) :  
+1.With Mongoose, everything is derived from a [Schema](https://mongoosejs.com/docs/guide.html).  
+1.5 Functions added to the `methods` property of a schema.  
+2.compiling schema into a [Model](https://mongoosejs.com/docs/models.html).  
+3.document can be saved to the database by calling its [save](https://mongoosejs.com/docs/api/model.html#Model.prototype.save()) method.  
+4.[querying](https://mongoosejs.com/docs/queries.html) syntax filter the data we want
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵
