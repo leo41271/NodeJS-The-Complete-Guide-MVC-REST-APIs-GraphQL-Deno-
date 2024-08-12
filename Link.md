@@ -1,4 +1,4 @@
-從 23 Payments `const app = express();`開始細看。
+從 23 Payments `const app = express();`開始細看 (app.js)。
 + [express.js Eng](https://expressjs.com/)
 + [express.js zh-tw 繁體](https://expressjs.com/zh-tw/)
 + [express.js cn 簡體](https://www.expressjs.com.cn/)
@@ -68,6 +68,17 @@ Mongoose 是一個基於 Node.js 的 MongoDB 物件數據模型 (Object Data Mod
 2.compiling schema into a [Model](https://mongoosejs.com/docs/models.html).  
 3.document can be saved to the database by calling its [save](https://mongoosejs.com/docs/api/model.html#Model.prototype.save()) method.  
 4.[querying](https://mongoosejs.com/docs/queries.html) syntax filter the data we want
+
+routes/admin.js  
++ [express-validator](https://express-validator.github.io/docs) 基於 [Validator.js](https://github.com/validatorjs/validator.js)，提供了一組簡單而強大的工具，幫助開發者在處理用戶輸入時進行驗證和清理。
++ ★★★ [Guide express.Router](https://expressjs.com/en/guide/routing.html#express-router)<br>★★★ [手冊 express.Router](https://expressjs.com/zh-tw/guide/routing.html#express-router)
++ + [router.METHOD(path, [callback, ...] callback)](https://expressjs.com/en/5x/api.html#router.METHOD) <br>router.get 、 router.post 、 router.delete
+
+controllers/shop.js<br>
+Stripe 是一個全球領先的在線支付處理平台，專門為企業和開發者提供簡單而強大的支付解決方案。它讓各類型企業能夠輕鬆地接受和管理在線支付，包括信用卡、借記卡、銀行轉賬以及其他支付方式。Stripe 支持全球多個國家和地區的業務，並且提供了廣泛的 API 和工具，讓開發者能夠將支付功能集成到他們的網站、移動應用和其他線上平台中。
++ [stripe](https://docs.stripe.com/) (台灣 中國區 無法註冊)
++ + + 解決辦法[stripe 申請](https://www.youtube.com/results?search_query=stripe+%E7%94%B3%E8%AB%8B) (流程很多繁雜，尚未申請)
++ [pdfkit](https://pdfkit.org/) (pdfkit 在 20-6 Upload Download 中)
 ---
 + markdown 的語法筆記  
-markdown 的換行是兩個空白鍵
+markdown 的換行是兩個空白鍵 br標籤也可以。
