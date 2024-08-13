@@ -1,4 +1,5 @@
-從 23 Payments `const app = express();`開始細看 (app.js)。
+從 23 Payments `const app = express();`開始細看  
+## app.js
 + [express.js Eng](https://expressjs.com/)
 + [express.js zh-tw 繁體](https://expressjs.com/zh-tw/)
 + [express.js cn 簡體](https://www.expressjs.com.cn/)
@@ -69,16 +70,92 @@ Mongoose 是一個基於 Node.js 的 MongoDB 物件數據模型 (Object Data Mod
 3.document can be saved to the database by calling its [save](https://mongoosejs.com/docs/api/model.html#Model.prototype.save()) method.  
 4.[querying](https://mongoosejs.com/docs/queries.html) syntax filter the data we want
 
-routes/admin.js  
+## util/file.js
++ [node File System - unlink](https://nodejs.org/docs/latest/api/fs.html#fsunlinkpath-callback) fs.unlink(path, callback) 非同步 刪除指定路徑的檔案 ，callback 操作成功，物件將是 null
+
+## routes/admin.js  
 + [express-validator](https://express-validator.github.io/docs) 基於 [Validator.js](https://github.com/validatorjs/validator.js)，提供了一組簡單而強大的工具，幫助開發者在處理用戶輸入時進行驗證和清理。
 + ★★★ [Guide express.Router](https://expressjs.com/en/guide/routing.html#express-router)<br>★★★ [手冊 express.Router](https://expressjs.com/zh-tw/guide/routing.html#express-router)
 + + [router.METHOD(path, [callback, ...] callback)](https://expressjs.com/en/5x/api.html#router.METHOD) <br>router.get 、 router.post 、 router.delete
 
-controllers/shop.js<br>
+## routes/auth.js  
++ [getting-started](https://express-validator.github.io/docs/guides/getting-started)  
+1.一邊驗證 ， 2. 另一邊透過 validationResult(req) 處裡驗證 3. 最後(可選) 合乎匹配者 matchedData(req) 至少專案沒有;
++ [.check api](https://express-validator.github.io/docs/api/check/#check)
++ [.body api](https://express-validator.github.io/docs/api/check/#body) 跟上面比 這個只會檢查 body 其他依樣畫葫蘆
++ + [Customizing express-validator](https://express-validator.github.io/docs/guides/customizing)  
++ + [.custom api](https://express-validator.github.io/docs/api/validation-chain#custom)  
+```js
+router.post('/login',[
+        body('email')
+            .isEmail()
+            .withMessage('Please enter a valid email address.')
+            .normalizeEmail(),
+        body('password', 'Password has to be valid.')
+            .isLength({ min: 5 })
+            .isAlphanumeric()
+            .trim(),
+    ], // 這裡 的 [ ... ] 驗證結果 會被儲存於 下方 authController.postLogin。 .postLogin 方法的 req 之中
+    authController.postLogin
+);
+```
+`authController.postLogin` 的部分。
+```js
+const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).render('auth/login', {
+            path: '/login',
+            pageTitle: 'Login',
+            errorMessage: errors.array()[0].msg,
+            oldInput: { email: email, password: password },
+            validationErrors: errors.array(),
+        });
+    }
+```
+
+## middleware/is-auth.js
+next() 一個重要的閘門機制讓流程繼續。  
+[Guild - Writing middleware](https://expressjs.com/en/guide/writing-middleware.html)。[中文 撰寫中介軟體](https://expressjs.com/zh-tw/guide/writing-middleware.html)。  
+`
+Notice the call above to next(). Calling this function invokes the next middleware function in the app. The next() function is not a part of the Node.js or Express API, but is the third argument that is passed to the middleware function. The next() function could be named anything, but by convention it is always named “next”. To avoid confusion, always use this convention.
+`
+## controllers/shop.js<br>
 Stripe 是一個全球領先的在線支付處理平台，專門為企業和開發者提供簡單而強大的支付解決方案。它讓各類型企業能夠輕鬆地接受和管理在線支付，包括信用卡、借記卡、銀行轉賬以及其他支付方式。Stripe 支持全球多個國家和地區的業務，並且提供了廣泛的 API 和工具，讓開發者能夠將支付功能集成到他們的網站、移動應用和其他線上平台中。
 + [stripe](https://docs.stripe.com/) (台灣 中國區 無法註冊)
 + + + 解決辦法[stripe 申請](https://www.youtube.com/results?search_query=stripe+%E7%94%B3%E8%AB%8B) (流程很多繁雜，尚未申請)
 + [pdfkit](https://pdfkit.org/) (pdfkit 在 20-6 Upload Download 中)
+
+## controllers/auth.js<br>
++ node [crypto.randomBytes](https://nodejs.org/api/crypto.html#cryptorandombytessize-callback) 內建
++ [bcryptjs](https://github.com/dcodeIO/bcrypt.js)  
+[compare(s, hash,...)](https://github.com/dcodeIO/bcrypt.js?tab=readme-ov-file#compares-hash-callback-progresscallback)、
+[hash(s, salt,...)](https://github.com/dcodeIO/bcrypt.js?tab=readme-ov-file#hashs-salt-callback-progresscallback)<br><br>
++ [SendGrid Official](https://www.twilio.com/docs/sendgrid) (no use in project)  
++ [nodemailer example](https://nodemailer.com/#example)  
++ [nodemailer-sendgrid-transport](https://github.com/sendgrid/nodemailer-sendgrid-transport?tab=readme-ov-file) > [Documentation](https://github.com/sendgrid/nodemailer-sendgrid-transport/blob/master/USAGE.md)
+```js
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const tranporter = nodemailer.createTransport(
+    sendgridTransport({
+        auth: {
+            api_key: '<<YOUR_API_KEY>>',
+        },
+    })
+);
+// ...
+return tranporter.sendMail({
+                to: email,
+                /** MUST MATCH VERIFIED SENDER
+                 *  ============================
+                 *  see "Sender Authentication" in
+                 *  Sendgrid dashboard
+                 */
+                from: 'test@test.com',
+                subject: 'Signup succeeded!',
+                html: '<h1>You sucessfully signed up!</h1>',
+            });
+```
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
