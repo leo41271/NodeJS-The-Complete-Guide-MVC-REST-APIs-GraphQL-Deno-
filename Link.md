@@ -157,5 +157,30 @@ return tranporter.sendMail({
             });
 ```
 ---
+# 24 Rest Api
+
+node - HTTP - [response.setHeader(name,value)](https://nodejs.org/api/http.html#responsesetheadername-value) (注意這裡的是node 核心模組的 方法 而不是 express.js 中的 static 中的選項 setHeaders )  
+MDN - [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) - [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 之下
++ [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
++ [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods)
++ [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers)
+
+next(); 前述有提到 ， 一個重要的閘門機制讓流程繼續。
+並且是約定俗成命名 所以以下是可以的
+```js
+app.use((req, res, gg /* next */) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+    );
+    gg(); // next();
+});
+```
+---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
