@@ -159,11 +159,15 @@ return tranporter.sendMail({
 ---
 # 24 Rest Api
 
-node - HTTP - [response.setHeader(name,value)](https://nodejs.org/api/http.html#responsesetheadername-value) (注意這裡的是node 核心模組的 方法 而不是 express.js 中的 static 中的選項 setHeaders )  
-MDN - [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) - [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 之下
-+ [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
+node - HTTP - [response.setHeader(name,value)](https://nodejs.org/api/http.html#responsesetheadername-value) (注意這裡的是node 核心模組的 方法 而不是 express.js 中的 static 中的選項 setHeaders )並且它會設定並更改(或新增)http的標頭資訊，且此時res還並未回傳回去它只是進行設定。  
+MDN - [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) - [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) [中文看這](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS) 之下
++ [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 普遍而言 多以設定 * ，除非限定ex 某域(源)下才有的開通服務 好讓所有的該域下的client 都能取得指定域(也就是來源)的資料。 
 + [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods)
 + [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers)
+
+Youtube:  
+[【跨域请求】【前端】什么是CORS ?](https://youtu.be/FF6zra7b7gM?si=HLvQN1TF5ku_Zfjl)  
+[跨來源資源共用（Cross-Origin Resource Sharing, CORS）簡介](https://youtu.be/fcHDAciPPw0?t=215)影片中 3:35 對應到文檔的 [Origin 域](https://developer.mozilla.org/en-US/docs/Glossary/Origin) : the scheme (protocol), hostname (domain), and port.在同源(域)下三者必須完全匹配。  
 
 next(); 前述有提到 ， 一個重要的閘門機制讓流程繼續。
 並且是約定俗成命名 所以以下是可以的
@@ -180,7 +184,43 @@ app.use((req, res, gg /* next */) => {
     );
     gg(); // next();
 });
+// ---以下前端 拿取後端資料
+postButton.addEventlistener('click', () => {
+    fetch('http:///localhost:8089/feed/post'),{
+        method: 'POST',
+        body: JSON.stringify({
+            title: 'A Codepen Post',
+            content: 'Created via Codepen'
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        // 在沒有JSON.stringify({... 。 
+        // 預設下 Content-Type : text/plain
+    }
+})
 ```
+
+## CORS Cross-Origin Resource Sharing 政策 剖析:  
+為了安全問題，基本上瀏覽器會檢查 來源是否 相同，不同則需要額外設定。  
+怎樣算相同? => scheme(protocol), hostname (domain), and port 三者必須完全一致。  
+對應的舉例 (http https) (yahoo.com google.com) (localhost:80 localhost:3360)  
+
+當來源不同 CORS 這個機制 會利用額外的 標頭headers + [預檢請求proflight request](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) 達成。  
+在部分類別的請求中 約有兩類: 1.[簡單請求Simple requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests) 2.預檢請求。  
+
+簡單請求不會 讓CORS 觸發預檢檢查。在這種情況下 CORS 的規範會讓瀏覽器檢查 server 回傳 res 是否帶有允許(包含)我們這個網域的認證=> Access-Control-Allow-Origin: * (*表示所有的網域都包含)， 如果server 那邊在經過路由的相關判斷允許有回傳就沒問題 (從不同源發送所回傳的 res 值可能會不同 ， * 只是表示server 沒有特別規範設定 ) 。
+
+如果非簡單請求， CORS 規範的流程會事先檢查 預檢請求 完成後 再看 主要請求。  
+預檢請求 的方法是 options 並且多了 Access-Control-Allow-Methods 、 Access-Control-Allow-Headers 資訊。  
+預檢請求的作用 是在向server 先告知 等等會有個非 簡單請求 先告訴你，你接受了我再傳給你。所以為什麼會在F12 中看到network 都會有兩個請求就是如此。  
+
+其他特別設定 附帶身分驗證的請求  
+如果請求當中帶有 cookie 或其他，裡面會帶有一些個人訊息 預設下在跨域請求時為了安全問題將不會帶著身分資訊，如果此時還想帶著 cookie之類的東西來瀏覽 需要額外設定 => [Access-Control-Allow-Credentials](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) ， 且此時 Access-Control-Allow-Origin 將必須要是具體的， * 將會失敗。  
+
+其他  
++ [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) how long the results of a preflight request can be cached(被瀏覽器快取存多久).  
++ Access-Control-Expose-Headers : 客戶端可以去存到那些額外的標頭。
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
