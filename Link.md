@@ -221,6 +221,54 @@ postButton.addEventlistener('click', () => {
 其他  
 + [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) how long the results of a preflight request can be cached(被瀏覽器快取存多久).  
 + Access-Control-Expose-Headers : 客戶端可以去存到那些額外的標頭。
+
+# 25 Rest Application
+
++ [default error handler](https://expressjs.com/en/guide/error-handling.html#the-default-error-handler) 必須要有4個 才能確實辨別出 錯誤處理程序。  
++ [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)  
+[jwt.verify()](https://github.com/auth0/node-jsonwebtoken?tab=readme-ov-file#jwtverifytoken-secretorpublickey-options-callback)  
+[jwt.sign()](https://github.com/auth0/node-jsonwebtoken?tab=readme-ov-file#jwtsignpayload-secretorprivatekey-options-callback)
+
+auth.js
+```js
+exports.login = (req, res, next) => // ...登入
+User.findOne({ email: email }) // ... DB 尋找特定帳號 並驗證 ...
+return bcrypt.compare(password, user.password); // ... 比對驗證結果
+.then((isEqual) =>  // ... 拿取驗證登入密碼結果後 在後續進行判別
+// ...
+const token = jwt.sign( // 授予 1hr token 簽章
+    { email: loadedUser.email, userId: loadedUser._id.toString() },
+    'somesupersecretsecret',
+    { expiresIn: '1h' }
+);
+res.status(200).json({
+    token: token,
+    userId: loadedUser._id.toString(),
+});
+```
+is-auth.js
+```js
+const jwt = require('jsonwebtoken');
+// ...
+const token = authHeader.split(' ')[1];
+    let decodedToken;
+    try {
+        decodedToken = jwt.verify(token, 'somesupersecretsecret');
+    } catch (err) {
+        err.statusCode = 500;
+        throw err;
+    }
+    if (!decodedToken) {
+        const error = new Error('Not authenticated.');
+        error.statusCode = 401;
+        throw error;
+    }
+    req.userId = decodedToken.userId;
+    next(); //最後確認 token 有過 繼續後續路由
+```
+參考 youtube jwtDoc: 
+[JWT 驗證｜六角學院](https://youtu.be/0ZWo22vF4uU?si=jEEg0SWdV0dErduK)、[jwt.io](https://jwt.io/)
+
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
