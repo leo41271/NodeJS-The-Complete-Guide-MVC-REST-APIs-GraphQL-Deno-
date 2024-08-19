@@ -251,6 +251,7 @@ is-auth.js
 const jwt = require('jsonwebtoken');
 // ...
 const token = authHeader.split(' ')[1];
+// [0] : >> 依照設定 ex : Basic Bearer Digest ...
     let decodedToken;
     try {
         decodedToken = jwt.verify(token, 'somesupersecretsecret');
@@ -267,7 +268,18 @@ const token = authHeader.split(' ')[1];
     next(); //最後確認 token 有過 繼續後續路由
 ```
 參考 youtube jwtDoc: 
-[JWT 驗證｜六角學院](https://youtu.be/0ZWo22vF4uU?si=jEEg0SWdV0dErduK)、[jwt.io](https://jwt.io/)
+[JWT 驗證｜六角學院](https://youtu.be/0ZWo22vF4uU?si=jEEg0SWdV0dErduK)、[jwt.io](https://jwt.io/) [繁體中文](https://jwt.dev.org.tw/introduction)
+
+```js
+fetch('http://localhost:8080/auth/status', {
+    headers: {
+        Authorization: 'Bearer ' + this.props.token,
+        // req.get('Authorization').split(" ")[0] : >> 依照設定 ex : Basic Bearer Digest ...
+    },
+})
+```
+HTTP headers - [Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#authentication) - [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)  
+關於 為何約定俗成設定是=>> Bearer [Authentication schemes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes)
 
 ---
 + markdown 的語法筆記  
