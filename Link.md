@@ -281,6 +281,16 @@ fetch('http://localhost:8080/auth/status', {
 HTTP headers - [Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#authentication) - [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)  
 關於 為何約定俗成設定是=>> Bearer [Authentication schemes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes)
 
+# 26 async function
+[async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function#description)  
+An async function declaration creates an AsyncFunction object. Each time when an async function is called, it returns a new Promise which will be resolved with the value returned by the async function, or rejected with an exception uncaught within the async function.  
+當 async 函式被呼叫時，它會回傳一個 Promise。如果該 async 函式回傳了一個值，Promise 的狀態將為一個帶有該回傳值的 resolved。如果 async 函式拋出例外或某個值，Promise 的狀態將為一個帶有被拋出值的 rejected。
+
+async/await 是`基於 Promise 的語法糖(簡化)`，它提供了一種更簡潔、更直觀的方式來處理異步操作。  
+async 函數：在函數前加上 async 關鍵字，這個函數就會返回一個 Promise。  
+await 關鍵字：只能在 async 函數中使用，await 用來等待一個 Promise 被解決（resolved）。它會暫停函數的執行，直到 Promise 返回結果，然後再繼續執行。  
+錯誤處理可以使用 try/catch 來處理。
+# 27 Websockets
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
