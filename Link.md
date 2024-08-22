@@ -1,4 +1,5 @@
-從 23 Payments `const app = express();`開始細看  
+# 從 23 Payments  
+`const app = express();` 開始細看  
 ## app.js
 + [express.js Eng](https://expressjs.com/)
 + [express.js zh-tw 繁體](https://expressjs.com/zh-tw/)
@@ -157,6 +158,7 @@ return tranporter.sendMail({
             });
 ```
 ---
+
 # 24 Rest Api
 
 node - HTTP - [response.setHeader(name,value)](https://nodejs.org/api/http.html#responsesetheadername-value) (注意這裡的是node 核心模組的 方法 而不是 express.js 中的 static 中的選項 setHeaders )並且它會設定並更改(或新增)http的標頭資訊，且此時res還並未回傳回去它只是進行設定。  
@@ -290,7 +292,20 @@ async/await 是`基於 Promise 的語法糖(簡化)`，它提供了一種更簡�
 async 函數：在函數前加上 async 關鍵字，這個函數就會返回一個 Promise。  
 await 關鍵字：只能在 async 函數中使用，await 用來等待一個 Promise 被解決（resolved）。它會暫停函數的執行，直到 Promise 返回結果，然後再繼續執行。  
 錯誤處理可以使用 try/catch 來處理。
+
 # 27 Websockets
++ [git socket.io](https://github.com/socketio/socket.io)
++ [Socket.IO Doc](https://socket.io/docs/v4/)  
+Socket.IO is a library that enables low-latency, bidirectional and event-based communication between a client and a server.  
+Socket.IO 是一個函式庫，可在客戶端和伺服器之間實現低延遲、雙向和基於事件的通訊
++ [`Socket.IO is NOT a WebSocket implementation.`](https://socket.io/docs/v4/#what-socketio-is-not)  
+儘管 Socket.IO 確實在可能的情況下使用 WebSocket 進行傳輸，但它為每個資料包添加了額外的元資料。
++ `Socket.IO` vs `WebSocket` 的區別?<br>
++ + [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) 是一種原生的網絡協議，定義在 RFC 6455 中。它允許在單一的 TCP 連接上進行全雙工通信，即客戶端和服務器可以同時發送和接收數據，而不需要建立多次連接。  
+mdn doc : [WebSocket servers](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)、[WebSocket client applications](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
++ + Socket.IO 是一個基於 WebSocket 的 JavaScript 庫(更高層的封裝)，但它不僅限於 WebSocket。它包括了 WebSocket 和其他技術（如 HTTP long-polling），確保在任何網絡環境下都能夠建立穩定的連接(回退機制 自動降級到其他通信方式，確保通信的可靠性)。
+額外功能:如自動重連、命名空間、房間功能以及訊息確認等，在構建複雜的實現更加方便。
+
 ---
 + markdown 的語法筆記  
 markdown 的換行是兩個空白鍵 br標籤也可以。
