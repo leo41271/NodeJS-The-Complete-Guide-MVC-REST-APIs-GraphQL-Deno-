@@ -303,9 +303,37 @@ Socket.IO 是一個函式庫，可在客戶端和伺服器之間實現低延遲�
 + `Socket.IO` vs `WebSocket` 的區別?<br>
 + + [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) 是一種原生的網絡協議，定義在 RFC 6455 中。它允許在單一的 TCP 連接上進行全雙工通信，即客戶端和服務器可以同時發送和接收數據，而不需要建立多次連接。  
 mdn doc : [WebSocket servers](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)、[WebSocket client applications](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
-+ + Socket.IO 是一個基於 WebSocket 的 JavaScript 庫(更高層的封裝)，但它不僅限於 WebSocket。它包括了 WebSocket 和其他技術（如 HTTP long-polling），確保在任何網絡環境下都能夠建立穩定的連接(回退機制 自動降級到其他通信方式，確保通信的可靠性)。
-額外功能:如自動重連、命名空間、房間功能以及訊息確認等，在構建複雜的實現更加方便。
++ + Socket.IO 是一個基於 WebSocket 的 JavaScript 庫(更高層的封裝)，但它不僅限於 WebSocket。它包括了 WebSocket 和其他技術（如在最基本連線中最低層級>HTTP long-polling），確保在任何網絡環境下都能夠建立穩定的連接(回退機制 自動降級到其他通信方式，確保通信的可靠性)。
+額外功能:如自動重連、資料包緩衝、命名空間(多路復用Multiplexing)、房間功能(廣播)以及訊息確認(Acknowledgements)等，在構建複雜的實現更加方便。
 
+## 運作原理 How it works
+Server 和 Client 之間盡可能以 WebSocket 連線 ， 並以 HTTP long-polling 當作備案。
+
+本質上 他分為兩個不同層級:  
++ 1. Engine.IO : Socket.IO 內部的引擎 (底層) : 處理傳輸 、
+更新機制、斷線檢測  
++ + [處理傳輸Transports](https://socket.io/docs/v4/how-it-works/#transports) : HTTP long-polling 、 WebSocket  
++ + Handshake : Engine.IO 連線開始時，伺服器會傳送一些訊息  
++ + 升級機制 : 預設情況下，客戶端使用 HTTP 長輪詢傳輸建立連接(因為User 體驗 故注重連線可靠)
++ + 斷線檢測Disconnection detection : HTTP request fails 、 WebSocket connection is closed 、 socket.disconnect() is called
++ 2. Socket.IO 本身(高級) : 讓你可以達到前面說的 額外功能的作用。  
+
+### Server Initialization
+注意不同幻境下的配置不同，其中 http 與 express 的配置有點類似 差別在 後者多了 express 的實例當作引數使用。  
++ `使用`[Express](https://socket.io/docs/v4/server-initialization/#with-express)`之下的初始設定` 這裡專案透過另外將 socket 初始設定分離。
+```js 
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { /* options */ });
+io.on("connection", (socket) => {
+  // ...
+});
+
+httpServer.listen(3000);
+```
 ---
-+ markdown 的語法筆記  
++ markdown 的語法筆記   
 markdown 的換行是兩個空白鍵 br標籤也可以。
