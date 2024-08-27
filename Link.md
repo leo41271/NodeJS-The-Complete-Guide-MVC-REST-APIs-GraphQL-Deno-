@@ -334,6 +334,48 @@ io.on("connection", (socket) => {
 
 httpServer.listen(3000);
 ```
+server
++ [Handling CORS](https://socket.io/docs/v4/handling-cors/)  
++ Events [Emitting events](https://socket.io/docs/v4/emitting-events/)  
+
+client
++ Initialization : [different domain](https://socket.io/docs/v4/client-initialization/#from-a-different-domain)
+```js
+const socket = io("https://server-domain.com"); // Doc
+const socket = openSocket('http://localhost:8080'); // frontend project use "action in value ['create','update','delete']" control by backend 
+        socket.on('posts', (data) => {
+            if (data.action === 'create') {
+                this.addPost(data.post);
+            } else if (data.action === 'update') {
+                this.updatePost(data.post);
+            } else if (data.action === 'delete') {
+                this.loadPosts();
+            }
+        });
+```
+server side
+```js
+io.getIO().emit('posts', { action: 'update' // ... 'create', 'delete' })
+// 這裡的 getIO 主要就只是為了要取得實體 instance 來 使用 io 本身的各種功能方法
+```
+上述基本流程:
+1. server: socket.emit("xxx")
+```js
+io.getIO().emit('posts' //...通知所有連接的客戶端有新的資料更新
+```
+2. client: socket.on("xxx",()=>{ ... }) 
+```js
+socket.on('posts', (data) => { // ...監聽從後端發送的事件 post 。
+```
+3. client: socket.emit("yyy")
+```js
+// ...專案中沒有
+```
+4. server: socket.on("yyy",()=>{ ... })
+```js
+io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客戶端連線時進行基本的處理。例如日誌輸出(如果需要)。沒有明確的例子表明後端正在監聽特定的事件
+```
++ 專案中主要為 後端向前端推送資料更新的情境 1 2步驟。即被動地監聽來自後端的通知（使用 socket.on('posts', ...)）。
 ---
 + markdown 的語法筆記   
 markdown 的換行是兩個空白鍵 br標籤也可以。
