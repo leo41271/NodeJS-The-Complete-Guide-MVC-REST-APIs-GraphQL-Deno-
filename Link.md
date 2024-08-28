@@ -378,4 +378,4 @@ io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客�
 + 專案中主要為 後端向前端推送資料更新的情境 1 2步驟。即被動地監聽來自後端的通知（使用 socket.on('posts', ...)）。
 ---
 + markdown 的語法筆記   
-markdown 的換行是兩個空白鍵 br標籤也可以。
+[Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
