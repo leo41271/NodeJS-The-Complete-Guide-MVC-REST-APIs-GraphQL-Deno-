@@ -376,6 +376,42 @@ socket.on('posts', (data) => { // ...監聽從後端發送的事件 post 。
 io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客戶端連線時進行基本的處理。例如日誌輸出(如果需要)。沒有明確的例子表明後端正在監聽特定的事件
 ```
 + 專案中主要為 後端向前端推送資料更新的情境 1 2步驟。即被動地監聽來自後端的通知（使用 socket.on('posts', ...)）。
+
+# 28 GraphQL
++ [GraphQL](https://graphql.org) 。[GraphQL 中文](https://graphql.cn/)  
++ Learn > Introduction > see [`the available training courses`](https://graphql.org/community/resources/training-courses/) (Community > Resources > Training Courses) :
+> 1. [`GraphQL Tutorials`](https://hasura.io/learn/graphql/intro-graphql/introduction/)(也有中文) 
+> 2. [`GraphQL-JS tutorial`](https://graphql.org/graphql-js/)
+
+1. `GraphQL Tutorials`  
+`GraphQL是?`
+![GraphQL 透過 HTTP 提供服務](https://graphql-engine-cdn.hasura.io/learn-hasura/assets/graphql-react/graphql-on-http.png)
+> request 透過字串 找尋 id 為 1 的資料 並且只要求 response 回傳 user 表的兩個欄位。  
+
+1. GraphQL 查詢不完全是 JSON；只是看起来類似。Client 將其作為"字串"發送。  
+2. Server 接收 JSON 物件 並根據 Graph 語法和 GraphQL 模式 將 已經從JSON物件提取出的 查詢字串符 進行處裡 驗證和Graph 查詢。
+3. Server 抓取 Client 的 req 所要的資料。
+4. 在向DataBase 或 其他service 拿到資料後 轉換成 JSON 物件 返回給 Client
+
+`GraphQL VS REST`  
+REST API 的核心圍繞著資源。 資源由 URL 和請求類型（GET、POST 等）識別。  
+GraphQL 則是可在`不同查詢下 得到不同的 JSON 資料`。  
++ GraphQL 的思維是:  
+1. 對 同個 URL 返回的資料 進行 臨時查詢。  
+2. POST 的內容 讓你描述你需要的資料的查詢 (沒有GET 方法了)  
+3. 將 response 的資料當作一個圖表 ， 好讓你能查詢 ， 進而 抓取 相關的 局部資料。
+4. POST 請求中作為資料發送的「查詢」含有結構和語法。 該「語言」稱為 GraphQL
+
+簡單術語對照
+Requirement | REST | GraphQL 
+--- | :---: | :---: 
+Fetching data objects | GET | 查詢 
+Inserting data | POST | mutation
+Updating/deleting data | PUT/PATCH/DELETE | mutation
+Watching/subscribing to data | &#10005; | subscription
+
+`每個 GraphQL 請求，無論成功或報錯，都應傳回 200`，錯誤則作為回應中正文的一部分的 errors物件之下來進行處理。
+
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
