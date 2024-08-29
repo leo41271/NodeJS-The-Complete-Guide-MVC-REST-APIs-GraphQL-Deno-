@@ -405,13 +405,139 @@ GraphQL 則是可在`不同查詢下 得到不同的 JSON 資料`。
 簡單術語對照
 Requirement | REST | GraphQL 
 --- | :---: | :---: 
-Fetching data objects | GET | 查詢 
+Fetching data objects | GET | query  
 Inserting data | POST | mutation
 Updating/deleting data | PUT/PATCH/DELETE | mutation
 Watching/subscribing to data | &#10005; | subscription
 
-`每個 GraphQL 請求，無論成功或報錯，都應傳回 200`，錯誤則作為回應中正文的一部分的 errors物件之下來進行處理。
+`每個 GraphQL 請求，無論成功或報錯，都應傳回 200`，錯誤則作為回應中正文的一部分的 errors物件之下來進行處理。  
 
+`GraphQL 核心概念`  
+GraphQL 請求字串的內容叫做 GraphQL 文檔 ( `GraphQL document` )
+```graphQL
+{
+  author {
+    id
+    name
+  }
+}
+```
+`GraphQL 操作` 有三類型 query mutation subscription。  
+A GraphQL document can contain one or more of these operations.
+```graphQL
+query {
+  author {
+    id
+    name
+  }
+} """文檔包含一個 '查詢' 操作。 在操作中可以選擇所需要的特定資料。"""
+```
+`Fields 字段` : 一個 GraphQL 字段描述一條獨立訊息。可表示資料之間的關係(可簡單或複雜)，操作中包含的全部内容都是字段。  
+下面的另一個範例中除了作者字段，也有文章字段，也表示字段之間的關係。  
+`Arguments 引數` : 可以出現在本文檔中的任何字段
+```graphQL
+query {
+  author(limit: 5) { """這個 作者 字段 接收一個叫做 limit 參數 在此範例 引數則為 5""" 
+    id
+    name
+    articles {
+      id
+      title
+      content
+    }
+  }
+}
+```
+`Variables 變數` : 在操作的 `頂部` 定義 ， 而變數的值以 Client 發送，格式通常是 Server 可以解的JSON格式。
+```graphQL
+query ($limit: Int) { """$limit: Int 變量宣告，名稱為 $limit，類型是 Int整數。"""
+  author(limit: $limit) { """查詢中，author 字段接受一個參數 limit，它的值是來自變量 $limit"""
+    id
+    name
+  }
+}
+
+"""JSON"""
+{
+  limit: 5
+}
+```
+`Operation Name 操作名稱` : 多操作時會有順序性，下面為兩個操作
+```graphQL
+query fetchAuthor { """一個是抓取單一作者"""
+  author(id: 1) {
+    name
+    profile_pic
+  }
+}
+query fetchAuthors { """一個是抓取多個作者"""
+  author(limit: 5, order_by: { name: asc }) {
+    id
+    name
+    profile_pic
+  }
+}
+```
+`Aliases 別名` : 下面 帶有參數的字段中 不能再選擇集中出現兩次 故用別名
+```graphQL
+query fetchAuthor {
+  author(id: 1) { """抓取作者資料"""
+    name
+    profile_pic_large: profile_pic(size: "large")
+    profile_pic_small: profile_pic(size: "small")
+  }
+}
+```
+`Fragments`
+```graphQL
+fragment authorFields on author {
+  id
+  name
+  profile_pic
+  created_at
+}
+
+query fetchAuthor {
+  author(id: 1) {
+    ...authorFields """這種用法叫做 片段擴展"""
+  }
+}
+query fetchAuthors {
+  author(limit: 5) {
+    ...authorFields
+  }
+}
+```
+`Inline Fragments` : 用於在查詢中處理多個可能類型（通常在使用介面或聯合類型時）(傳回多個不同的類型) 讓你可在不聲明下使用
+```graphQL
+query {
+  search(query: "GraphQL") {
+    ... on User {
+      id
+      username
+    }
+    ... on Article {
+      id
+      title
+      content
+    }
+  }
+} """依照返回的類型 直接對應"""
+```
+`Directives 指示` : 在不影響回應值的情況下新增附加功能的標識符，但會影響返回客戶端的回應  
+標識符`@`後面可以跟一列已命名的參數。
+- `@deprecated(reason: String)` - 將欄位標為已棄用  
+- `@skip (if: Boolean)` - 跳過該欄位的 GraphQL 執行  
+- `@include (if: Boolean)` - 如果為 true，則為帶有註解的欄位呼叫解析器。 
+```graphQL
+query ($showFullname: Boolean!) {
+  author {
+    id
+    name
+    fullname @include(if: $showFullname)
+  }
+}
+```
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
