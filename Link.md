@@ -381,7 +381,6 @@ io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客�
 + [GraphQL](https://graphql.org) 。[GraphQL 中文](https://graphql.cn/)  
 + Learn > Introduction > see [`the available training courses`](https://graphql.org/community/resources/training-courses/) (Community > Resources > Training Courses) :
 > 1. [`GraphQL Tutorials`](https://hasura.io/learn/graphql/intro-graphql/introduction/)(也有中文) 
-> 2. [`GraphQL-JS tutorial`](https://graphql.org/graphql-js/)
 
 1. `GraphQL Tutorials`  
 `GraphQL是?`
@@ -398,7 +397,7 @@ REST API 的核心圍繞著資源。 資源由 URL 和請求類型（GET、POST 
 GraphQL 則是可在`不同查詢下 得到不同的 JSON 資料`。  
 + GraphQL 的思維是:  
 1. 對 同個 URL 返回的資料 進行 臨時查詢。  
-2. POST 的內容 讓你描述你需要的資料的查詢 (沒有GET 方法了)  
+2. POST 的內容 讓你描述你需要的資料的查詢 (沒有GET 方法了 就只有POST)  
 3. 將 response 的資料當作一個圖表 ， 好讓你能查詢 ， 進而 抓取 相關的 局部資料。
 4. POST 請求中作為資料發送的「查詢」含有結構和語法。 該「語言」稱為 GraphQL
 
@@ -425,10 +424,10 @@ GraphQL 請求字串的內容叫做 GraphQL 文檔 ( `GraphQL document` )
 `GraphQL 操作` 有三類型 query mutation subscription。  
 A GraphQL document can contain one or more of these operations.
 ```graphQL
-query {
-  author {
-    id
-    name
+query { """operation type"""
+  author { """operation endpoint"""
+    id """request fields"""
+    name """request fields"""
   }
 } """文檔包含一個 '查詢' 操作。 在操作中可以選擇所需要的特定資料。"""
 ```
@@ -538,6 +537,21 @@ query ($showFullname: Boolean!) {
   }
 }
 ```
+`How Does GraphQL Work With the Server?`
+GraphQL servers are composed of two main parts:
+1. Schema : defines what the API looks like
+2. Resolvers : a function that specifies how to process a specific GraphQL operation and turn it into data.
++ 伺服器每次收到請求時，都會經歷以下步驟：
+1. 解析文檔 
+2. 確定要執行的 操作operation（如果有多個） 
+3. 驗證請求，如果失敗則回傳錯誤 
+4. 執行操作（查詢/變異/訂閱）
+
+The most common way of writing a GraphQL server is by defining the schema and writing resolvers for the different operations and fields.  
++ [28-01-first-query](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/e48121caf73828db27f658930c23b87bb604788f) 、 [28-02-mutation-schema](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/43a41142ac65fd6ea8f2867671833bfcc8fa6c63) 、 [28-03-mutation-resolver](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/b797dbde261b36cbcbfb69d3ead180a35cf118b6)
+
+[Queries and `Mutations`](https://graphql.org/learn/queries/#mutations)
+
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
