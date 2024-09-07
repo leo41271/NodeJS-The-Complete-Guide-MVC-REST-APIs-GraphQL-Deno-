@@ -383,7 +383,7 @@ io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客�
 > 1. [`GraphQL Tutorials`](https://hasura.io/learn/graphql/intro-graphql/introduction/)(也有中文) 
 
 1. `GraphQL Tutorials`  
-`GraphQL是?`
+A. [`GraphQL是?`](https://hasura.io/learn/graphql/intro-graphql/what-is-graphql/)
 ![GraphQL 透過 HTTP 提供服務](https://graphql-engine-cdn.hasura.io/learn-hasura/assets/graphql-react/graphql-on-http.png)
 > request 透過字串 找尋 id 為 1 的資料 並且只要求 response 回傳 user 表的兩個欄位。  
 
@@ -392,7 +392,7 @@ io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客�
 3. Server 抓取 Client 的 req 所要的資料。
 4. 在向DataBase 或 其他service 拿到資料後 轉換成 JSON 物件 返回給 Client
 
-`GraphQL VS REST`  
+B. [`GraphQL VS REST`](https://hasura.io/learn/graphql/intro-graphql/graphql-vs-rest/)  
 REST API 的核心圍繞著資源。 資源由 URL 和請求類型（GET、POST 等）識別。  
 GraphQL 則是可在`不同查詢下 得到不同的 JSON 資料`。  
 + GraphQL 的思維是:  
@@ -411,7 +411,21 @@ Watching/subscribing to data | &#10005; | subscription
 
 `每個 GraphQL 請求，無論成功或報錯，都應傳回 200`，錯誤則作為回應中正文的一部分的 errors物件之下來進行處理。  
 
-`GraphQL 核心概念`  
+另外因為 express graphql automatically declines anything which is not a post or get request.
+(只接收 get post 其他自動拒絕) 而這樣我們的 預檢請求 是 option 要讓他許可就必須要特別設置(此處觀念請參看 CORS )。  
+在 Header 設置的部分另作配置 :
+```js
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+    );
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+```
+
+C. [`GraphQL 核心概念`](https://hasura.io/learn/graphql/intro-graphql/core-concepts/) 。 [Queries and Mutations](https://graphql.org/learn/queries/)  
 GraphQL 請求字串的內容叫做 GraphQL 文檔 ( `GraphQL document` )
 ```graphQL
 {
@@ -537,7 +551,8 @@ query ($showFullname: Boolean!) {
   }
 }
 ```
-`How Does GraphQL Work With the Server?`
+
+D. [`How Does GraphQL Work With the Server?`](https://hasura.io/learn/graphql/intro-graphql/graphql-server/)
 GraphQL servers are composed of two main parts:
 1. Schema : defines what the API looks like
 2. Resolvers : a function that specifies how to process a specific GraphQL operation and turn it into data.
@@ -548,9 +563,36 @@ GraphQL servers are composed of two main parts:
 4. 執行操作（查詢/變異/訂閱）
 
 The most common way of writing a GraphQL server is by defining the schema and writing resolvers for the different operations and fields.  
+
+`初始後端配置參考此`: [`GraphQL-JS tutorial`](https://graphql.org/graphql-js/)  
+```js
+app.all('/graphql', (req, res) =>
+    grapqlHttp.createHandler({
+        schema: graphqlSchema,
+        rootValue: graphqlResolver,
+        context: { req, res }, 
+        formatError(err) { // graphql-http 。(427. Handling Errors)
+            if (!err.originalError) { return err; }
+            const data = err.originalError.data;
+            const message = err.message || 'An error occurred.';
+            const code = err.originalError.code || 500;
+            return { message: message, status: code, data: data, };
+        },
+    })(req, res)
+);
+```
+context: 提供給每個 resolver 並保存重要上下文資訊（例如目前登入的使用者或對資料庫的存取權）的值。這裡 context 物件 將作為 下方圖片 resolver 的 分別方法的例如
+`createPost: async ({ postInput }, { req })` 第二個參數解構出來使用。  
+`})(req, res)` 此處 是把(req, res) =>傳遞至此再給入到createHandler中介函式下的context裡面(來處理當前的請求和回應)。  
+[formatError](https://graphql.org/graphql-js/error/#formaterror)
+
+import版本問題 [express-graphql graphql-http/lib/use/express](https://github.com/graphql/graphql-http?tab=readme-ov-file#migrating-express-graphql)\
+[express-graphql-explorer](https://npm.io/package/express-graphiql-explorer)
+
+
 + [28-01-first-query](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/e48121caf73828db27f658930c23b87bb604788f) 、 [28-02-mutation-schema](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/43a41142ac65fd6ea8f2867671833bfcc8fa6c63) 、 [28-03-mutation-resolver](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/b797dbde261b36cbcbfb69d3ead180a35cf118b6)
 
-[Queries and `Mutations`](https://graphql.org/learn/queries/#mutations)
+![schema_resolvers](./screenshot/schema_resolvers(hint).png)
 
 ---
 + markdown 的語法筆記   
