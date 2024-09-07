@@ -594,6 +594,71 @@ import版本問題 [express-graphql graphql-http/lib/use/express](https://github
 
 ![schema_resolvers](./screenshot/schema_resolvers(hint).png)
 
+E. [`GraphQL Clients`](https://hasura.io/learn/graphql/intro-graphql/graphql-client/)
+使用原生 JavaScript Fetch API 發出 GraphQL 請求
+```js
+const limit = 5; // 此處隨意舉例
+const query = `query author($limit: Int!) {
+    author(limit: $limit) { id name }
+}`;
+fetch('/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+  body: JSON.stringify({ query, variables: { limit }, })
+}).then(r => r.json())
+  .then(data => console.log('data returned:', data));
+```
+```js
+// 專案中一些函式內。此處展示兩個例子 1. loginHandler 2. statusUpdateHandler
+loginHandler = (event, authData) => {
+event.preventDefault();
+const graphqlQuery = {
+  query: `
+      query UserLogin($email: String!, $password: String!) { 
+          login(email: $email, password: $password){
+              token
+              userId
+          }
+      }
+  `,
+  variables: { 
+      email: authData.email,
+      password: authData.password,
+  },
+};
+this.setState({ authLoading: true });
+  fetch('http://localhost:8080/graphql', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(graphqlQuery),
+  }) 
+  // .then((res) => { .....剩餘步驟與商業邏輯...
+}
+```
+```js
+statusUpdateHandler = (event) => {
+event.preventDefault();
+const graphqlQuery = {
+    query: `
+        mutation UpdateUserStatus($userStatus: String) {
+            updateStatus(status: $userStatus){
+                status
+            }
+        }
+    `,
+    variables: { userStatus: this.state.status, },
+};
+fetch('http://localhost:8080/graphql', {
+    method: 'POST',
+    headers: {
+        Authorization: 'Bearer ' + this.props.token,
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(graphqlQuery),
+}) // .then((res) => { .....剩餘步驟與商業邏輯...
+}
+```
+
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
