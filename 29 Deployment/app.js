@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const https = require('https');
+// const https = require('https');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -41,8 +41,8 @@ const csrfProtection = csrf({
 });
 /** ====================== */
 
-const privateKey = fs.readFileSync(path.join(__dirname, 'server.key'));
-const certificate = fs.readFileSync(path.join(__dirname, 'server.cert'));
+// const privateKey = fs.readFileSync(path.join(__dirname, 'server.key'));
+// const certificate = fs.readFileSync(path.join(__dirname, 'server.cert'));
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
