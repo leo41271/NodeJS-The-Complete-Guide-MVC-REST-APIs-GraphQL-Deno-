@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -11,6 +12,9 @@ const cookieParser = require('cookie-parser');
 /** ================ */
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -64,6 +68,26 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
+
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'),
+    { flags: 'a' }
+);
+
+/** CUSTOM HELMET CONFIGURATION */
+app.use(
+    helmet.contentSecurityPolicy({
+        useDefaults: true,
+        directives: {
+            imageSrc: null, // ALLOW IMAGES FROM ANYWHERE
+            scriptSrc: ["'self'", "'unsafe-inline'"], // ALLOW CLIENT-SIDE-JS
+            scriptSrcAttr: ["'self'", "'unsafe-inline'"], // ALLOW CLIENT-SIDE-JS
+        },
+    })
+);
+/** =========================== */
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
