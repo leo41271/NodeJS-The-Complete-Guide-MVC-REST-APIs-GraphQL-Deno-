@@ -15,11 +15,7 @@ const multer = require('multer');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-/** REPLACE CONNECTION STRING IF USING ATLAS
- *  "mongodb+srv://<username>:<password>@<cluster-id>.mongodb.net/<dbName>?retryWrites=true&authSource=admin"
- */
-const MONGODB_URI =
-    'mongodb://127.0.0.1:27017/shop?retryWrites=true&authSource=admin';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.dkklz9u.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&authSource=admin`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -134,7 +130,7 @@ app.use((error, req, res, next) => {
 mongoose
     .connect(MONGODB_URI)
     .then((result) => {
-        app.listen(3000);
+        app.listen(process.env.PORT || 3000);
     })
     .catch((err) => {
         console.log(err);
