@@ -710,6 +710,31 @@ and last add `*.env`  to  .gitignore file
 ```.gitignore
 *.env
 ```
+[helmet npm](https://github.com/helmetjs/helmet): 主要是加些資訊在http標頭防止一些常見的網路各種攻擊或設定  
+注意專案的語法已經過時，詳情參照 [Content-Security-Policy](https://github.com/helmetjs/helmet?tab=readme-ov-file#content-security-policy)。\
+[Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)\
+[compression npm](https://github.com/expressjs/compression): 對 response 的 body 進行壓縮。  
+```js
+app.use(compression({
+  threshold: 1024, // 只壓縮超過 1KB 的回應
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false; // 客戶端標頭要求不壓縮
+    }
+    return compression.filter(req, res); // 默認的壓縮過濾器
+  }
+}));
+```
+[morgan npm](https://github.com/expressjs/morgan)記錄每個進入伺服器的 HTTP 請求的詳細資訊(日誌)，方便開發者在開發或除錯過程中查看請求記錄。
+其他參考: [How to Get Node.js Logging Right](https://blog.risingstack.com/node-js-logging-tutorial/)
+```js
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'), { flags: 'a' } // 存放 log 檔
+);
+app.use(morgan('combined', { stream: accessLogStream }));
+// 有三個選項 immediate skip stream 專案只用第三個選項
+```
+
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
