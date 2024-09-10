@@ -669,6 +669,47 @@ Server 公開以下有關Query操作類型的內省查詢。
 query the field `__schema` field to find out the available `queries`, `mutations` and `types`  
 為開發者提供了一種方式來探索和理解 API 結構。
 
+# 29 Deployment
+
+[How to read environment variables from Node.js](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs)
+```env
+# .env file
+PORT=3000
+MONGO_USER=leo41271
+MONGO_PASSWORD=yourpassword
+MONGO_DEFAULT_DATABASE=shop
+STRIPE_KEY=sk_test_wertyukkjhgfdxcvbnuikomnbv
+```
+```js
+// index.js
+console.log("777"); // node index.js >> 777 undefined undefined undefined undefined
+console.log(process.env.PORT); // node --env-file=.env index.js >> will get values of ".env" file (dev.env prod.env plz run another script below)
+console.log(process.env.MONGO_USER);
+console.log(process.env.MONGO_PASSWORD);
+console.log(process.env.STRIPE_KEY);
+```
+remove to `package.json` to run `npm run use-env`script
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "use-env" : "node --env-file=.env index.js",
+    "dev-env" : "node --env-file=dev.env index.js",
+    "prod-env" : "node --env-file=prod.env index.js" // here have 3 files !!
+  },
+```
+console or bash ... run code
+```bash
+npm run use-env
+777
+3000
+leo41271
+9u4biljMQc4jjqbe
+sk_test_T80E02SHDZQLwk4TYtrWlsat
+```
+and last add `*.env`  to  .gitignore file
+```.gitignore
+*.env
+```
 ---
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)

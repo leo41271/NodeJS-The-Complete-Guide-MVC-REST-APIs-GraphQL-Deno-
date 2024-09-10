@@ -4,3 +4,8 @@ package-lock.json
 access.log
 server.cert
 server.key
+
+
+
+# Node.js 20 introduced experimental support for .env files.
+*.env
