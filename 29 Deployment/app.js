@@ -43,6 +43,8 @@ const csrfProtection = csrf({
 
 // const privateKey = fs.readFileSync(path.join(__dirname, 'server.key'));
 // const certificate = fs.readFileSync(path.join(__dirname, 'server.cert'));
+// const privateKey = fs.readFileSync('key.pem');
+// const certificate = fs.readFileSync('csr.pem');
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {

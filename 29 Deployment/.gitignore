@@ -9,3 +9,6 @@ server.key
 
 # Node.js 20 introduced experimental support for .env files.
 *.env
+
+key.pem
+csr.pem

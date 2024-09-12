@@ -755,6 +755,50 @@ ssl憑證會連接公鑰和伺服器 並發送該證書 到前端、到瀏覽器
 我們擁有該公鑰，該證書的一部分，我們將在這裡自己創建它，因為這是免費的，  
 然後客戶端透過該憑證接收該公鑰，現在客戶端可以加密它發送到伺服器的數據，伺服器可以使用該私鑰解密數據，並且只有該私鑰才能解密該數據。  
 
----
+### SSL setting in node.js (windows)
+MAC Linux 有預設的， windows 沒有。
+1. windows 需要自己下載。\
+[openSSL Binaries](https://wiki.openssl.org/index.php/Binaries) > `OpenSSL for Windows`
+[Win32/Win64 OpenSSL Installer for Windows](https://slproweb.com/products/Win32OpenSSL.html)\
+2.  下載後 cmd 裡面 openssl 還未被加到環境變數裡面。找到 openssl bin 所在的檔案目錄例如以下 `C:\Program Files\OpenSSL-Win64\bin` 將其加到環境變數中。
+3. download VC_redist.x64 for C++ (if you don't have click yes(是) if you have it will not show)
+![required c++](./screenshot/openSSL_windows_required_C++.png)
+4. go to ENV_VAR
+![openssl go to ENV_VAR](./screenshot//go_to_ENV_variable.png)
+5. set openssl to path\
+![add openssl to path](./screenshot/openssl_add_to_path.png)
+5. click ok ... ok ... ok.
+6. go to cmd test `openssl version` (vscode need to close and reopen)
+```cmd
+C:\Users\leoch>openssl version
+OpenSSL 3.3.2 3 Sep 2024 (Library: OpenSSL 3.3.2 3 Sep 2024)
+```
+7. generate_key
+```bash
+# mac 的應該是如下(我是windows， mac 的我沒有很確定但可以試試)
+openssl req -nodes -new -x509 -keyout -server.key -out server.cert
+# windows 的應該是如下(我是windows)
+openssl req -nodes -new -x509 -keyout key.pem -out csr.pem
+
+### 其中 Common name 需要設定成你的域名 在這裡我們是 localhost 否則 將不會被接受
+```
+![generate_key](./screenshot//generate_key.png)
+[openssl syntax 語法](https://docs.openssl.org/master/man1/openssl-req/)
+```js
+const https = require('https');
+// ...
+const privateKey = fs.readFileSync('key.pem'); // windows env
+const certificate = fs.readFileSync('csr.pem');
+// ...
+https.createServer(
+  { key: privateKey, cert: certificate },
+  app
+).listen(process.env.PORT || 3000);
+```
+<hr />
+
+`Heroku 不在享有任何免費服務。` 替代品  [Render.com](https://render.com/)
+
+<hr />
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
