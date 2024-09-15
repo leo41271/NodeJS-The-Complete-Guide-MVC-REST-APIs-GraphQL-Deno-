@@ -1,3 +1,33 @@
+NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)
+
+please click here to see different.\
+![git-diff](./screenshot/see-each-commit-diff.png)\
+Basically, this repo mainly refers to here https://github.com/unsivilaudio/node.js-complete-guide-2024.
+In general, I uploaded each chapter unit through git. If the commit message has a specific format like this `27-01-connecting-client`
+`(chapter-number-doSomething)` is a reference to his part.
+
+As for why I do this, it is because through git, I can better see the program differences that appear every time a part of the course is completed.
+And I don't have to compare the differences in the entire project again. This saves me a lot of time.
+
+but I personally don’t recommend running the code together every time, because most of the time I don’t do it (this is partly due to efficiency issues, sometimes it takes too much time to follow it all, and I think the probability of encountering some parts in actual work is not very high and the efficiency is not high. In addition, I am not very friendly with English and other factors, which will take time).
+
+The rest is more of my own personal writing and research.
+
+By the way, there will be a `commit comment` in each Git commit, which is an additional comment I make through the web page after each `commit` action. You can also take a look if necessary(if helps).
+![git-explain](./screenshot/explain-git-commit.png)
+
+中文 Chinese
+基本上本篇的 repo 主要是參考這個人所釋出的 repo https://github.com/unsivilaudio/node.js-complete-guide-2024 。
+整體而言我將 他每次的 章節單元 透過 git 上傳。 commit 訊息中如果是類似這樣具體格式的 
+`27-01-connecting-client` `(chapter-number-doSomething)`則是參考他的部分。
+至於為什麼我這樣做是因為透過 git 的方式可以更好的看到每一次課程做完一部分段落的功能時，所顯現的程式差異。
+而我不用再次比對整份專案的不同。這樣讓我省下很多時間，但是我個人並不建議每次程式碼都跟著一起跑，因為絕大部分我並沒有這麼做(這部分原因是效率問題，有時候都跟著做實在是太花費時間，並且有些部分在實際工作上遇到的機率我想並不是很高效益也不大，加上我對英文沒有到非常友好等等的因素 這些都要時間)。
+其他以外的則是我自己個人額外多的撰寫與研究。
+另外有些 每次的Git commit 中 會有 `commit comment` 是我在每次 `commit`動作 之後 額外透過網頁的註解，如果有需要也可以看看。
+
+the rest of part is my note.
+
+
 # 從 23 Payments  
 `const app = express();` 開始細看  
 ## app.js
