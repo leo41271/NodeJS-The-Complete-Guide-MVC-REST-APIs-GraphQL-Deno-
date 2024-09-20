@@ -828,7 +828,62 @@ https.createServer(
 <hr />
 
 `Heroku 不在享有任何免費服務。` 替代品  [Render.com](https://render.com/)
+# 31 build tool & npm intro
++ npm CLI\
+[npm intro](https://docs.npmjs.com/about-npm)\
+[npm-init](https://docs.npmjs.com/cli/v10/commands/npm-init)\
+[npm install](https://docs.npmjs.com/cli/v10/commands/npm-install)\
+[npx](https://docs.npmjs.com/cli/v10/commands/npx)\
+Configuring npm\
+[package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)\
+[package-lock.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
 
+https://semver.org/lang/zh-TW/
+
+build tool : 軟體開發中，協助自動化處理編譯、打包、轉換程式碼等過程的工具。(幫助開發者減少重複的手動工作，提升開發效率)
+npm 是 Node.js 的套件管理工具，也是目前非常普及的 Build 工具之一。它的核心功能是管理專案所需的各種套件或模組，並且能執行定義好的腳本（scripts）來自動化處理不同階段的工作。
+
++ 其他 Build 工具 : `Webpack`、`Vite` 
++ Build 工具的功能與概念\
+模組化打包：將多個文件或模組（如 JS 文件、CSS 文件）合併為少量甚至單一文件，減少 HTTP 請求次數，提升效能。\
+代碼轉譯與編譯：如將 ES6+ 的 JavaScript 語法轉換為瀏覽器兼容的 ES5，或將 TypeScript 編譯為 JavaScript。\
+壓縮與優化：對代碼進行壓縮與優化，以減少檔案大小，加快網站載入速度。\
+自動化工作流：如自動化測試、CSS 預處理器編譯、文件壓縮等任務。
+
+# 32 ES modules vs CommonJS
+兩者不能混用
++ [兩種主流的模組化，ES Modules與CommonJS](https://hackmd.io/@SkT7-27LSWWQi5G2DJBLkw/ryQ1w-rBi) (good)
++ https://nodejs.org/dist/latest-v14.x/docs/api/esm.html\
+commonJS
+```js
+const myName = 'Jack'
+module.exports = myName 
+// ---------
+const data = require('./commonJS')
+console.log(data) // 'Jack'
+// ---------
+const myName = 'Jack'
+const age = 52
+const liveLocation = 'Taipei'
+const job = 'Manger'
+module.exports = { myName, age, liveLocation, job }
+```
+ES6modules
+```js
+export const myName = 'Jack'
+// ---------
+import {myName} from './es6modules'
+console.log(myName) // Jack
+// ---------
+export const myName = 'Jack'
+export const myAge = 56
+export const myJob = 'Manger'
+export const myLocation = 'Taipei'
+
+import {myName,myAge,myJob,myLocation} from './es6modules'
+import * as all from './es6modules' // 如果不想一個一寫寫出來的話
+console.log(all.myName)// Jack // 如何使用
+```
 # 33 NodeJS Typescript
 `npm install typescript --save-dev`(local)>npx tsc --init(local 下 都要有npx 前置指令)\
 `npm install -g typescript` (global)>tsc --init
@@ -844,6 +899,12 @@ import express from 'express' // 在 ts 中是可行的但 tsc 後一樣會是 r
 // 注意此處 package.json 沒有另外配置 使的 import from 可行 (nodejs 本身也有)，這裡是 ts 本身支援
 ```
 `const buttonElement = document.querySelector('button')!;` : 邏輯上可以有Null，但我們知道實際上不會有，表示回傳值非 null
+
+# 34 35 Deno (skip not popular)
+
+開發者使用率：在全球技術調查（如 Stack Overflow）的數據中，Deno 的使用率相對較低，僅佔不到 5% 的市場份額，而 Node.js 則佔了超過 30%。台灣的情況大致相似，Node.js 仍是大多數企業的首選後端技術。
+
+求職平台數據：根據台灣知名求職平台（如 104 人力銀行）的資料，在 2024 年上半年，與 Deno 相關的工作機會非常稀少，幾乎可以忽略不計。相比之下，與 Node.js 相關的職缺約有數百個，反映了該技術的市場需求。
 
 <hr />
 + markdown 的語法筆記   
