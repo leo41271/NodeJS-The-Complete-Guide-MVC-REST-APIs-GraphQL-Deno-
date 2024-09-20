@@ -829,6 +829,22 @@ https.createServer(
 
 `Heroku 不在享有任何免費服務。` 替代品  [Render.com](https://render.com/)
 
+# 33 NodeJS Typescript
+`npm install typescript --save-dev`(local)>npx tsc --init(local 下 都要有npx 前置指令)\
+`npm install -g typescript` (global)>tsc --init
+
+`@types/XXX` 支援type(翻譯)的套件
+
+``` js
+tsconfig.json 
+"target": "es2016" // js versions "es5" "es6" "es2016"... // https://www.w3schools.com/js/js_versions.asp
+"moduleResolution": "node", // 指定 TypeScript 如何從給定的模組說明符中尋找檔案。
+
+import express from 'express' // 在 ts 中是可行的但 tsc 後一樣會是 require('xxx')
+// 注意此處 package.json 沒有另外配置 使的 import from 可行 (nodejs 本身也有)，這裡是 ts 本身支援
+```
+`const buttonElement = document.querySelector('button')!;` : 邏輯上可以有Null，但我們知道實際上不會有，表示回傳值非 null
+
 <hr />
 + markdown 的語法筆記   
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
