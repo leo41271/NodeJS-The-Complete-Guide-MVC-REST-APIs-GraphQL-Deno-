@@ -828,6 +828,32 @@ https.createServer(
 <hr />
 
 `Heroku 不在享有任何免費服務。` 替代品  [Render.com](https://render.com/)
+
+# 30 Testing
+
+[TDD/BDD and Test Double](https://medium.com/hobo-engineer/ricky%E7%AD%86%E8%A8%98-tdd-bdd-and-test-double-76eee9e75092)(include Unit test concept)\
+[BDD/TDD/ATDD](https://ithelp.ithome.com.tw/m/articles/10305119)
+
++ TDD Test-driven Development (測試驅動開發):
+一種開發流程。TDD 是「先寫測試再開發程式」。
+好處是開發者寫出測試時，就可以瞭解這一個元件/方法最後會怎麼使用，同時也釐清程式該怎麼設計。
+整個開發流程會在單元測試、撰寫程式、重構三者間不斷循環，是一種有效提升程式品質的開發方法。
++ BDD Behavior-driven Development (行為驅動開發)
+BDD 是 TDD 的進化版，除先寫測試再實作外，再多先寫規格，並且規格是一份「可以執行的規格」，也就是其程式語法描述接近日常口語，相當簡單易懂，也可以執行。也就是說比起 TDD ，BDD 更可以讓非技術人員一起參與討論，能讓使用者、測試人員與開發人員，可以用一樣的方式來描述與了解需求。
+
++ [Chai Doc](https://www.chaijs.com/)\
+  [Chai Expect](https://www.chaijs.com/guide/styles/#expect)\
+  [BDD expect/should API](https://www.chaijs.com/api/bdd/)\
+  [.bind 使用在 throw 中](https://www.chaijs.com/api/bdd/#method_throw)
+
++ [Mocha Doc](https://mochajs.org/)。[Mocha中文](https://mochajs.bootcss.com/)\
+  use [Assertions](https://mochajs.org/#assertions) in mocha\
+  Asynchronous Code [done()](https://mochajs.org/#asynchronous-code)\
+  [Hook](https://mochajs.org/#hooks) 
+
++ [Sinon](https://sinonjs.org/)\
+  [sinon.stub](https://sinonjs.org/releases/v19/stubs/)
+
 # 31 build tool & npm intro
 + npm CLI\
 [npm intro](https://docs.npmjs.com/about-npm)\
