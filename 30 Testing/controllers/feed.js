@@ -46,7 +46,6 @@ exports.createPost = async (req, res, next) => {
     const imageUrl = req.file.path.replace(/\\/g, '/');
     const title = req.body.title;
     const content = req.body.content;
-    let creator;
     const post = new Post({
         title: title,
         content: content,
@@ -57,7 +56,7 @@ exports.createPost = async (req, res, next) => {
         await post.save();
         const user = await User.findById(req.userId);
         user.posts.push(post);
-        await user.save();
+        const savedUser = await user.save();
         res.status(201).json({
             message: 'Post created successfully!',
             post: post,
@@ -66,6 +65,7 @@ exports.createPost = async (req, res, next) => {
                 name: user.name,
             },
         });
+        return savedUser;
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
