@@ -1,35 +1,67 @@
-NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)
 
-please click here to see different.\
-![git-diff](./screenshot/see-each-commit-diff.png)\
-Basically, this repo mainly refers to here https://github.com/unsivilaudio/node.js-complete-guide-2024.
-In general, I uploaded each chapter unit through git. If the commit message has a specific format like this `27-01-connecting-client`
-`(chapter-number-doSomething)` is a reference to his part.
+# how to use (Eng)
+
+### [NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)](https://www.udemy.com/course/nodejs-the-complete-guide/?couponCode=ST22MT92324B)
+
+Basically, this repo mainly refers to here [node.js-complete-guide-2024](https://github.com/unsivilaudio/node.js-complete-guide-2024.)\
+In general, I uploaded each chapter unit through git. If the commit message has a specific format like this `12-01-using-database-conn`
+`(chapter -number -do-Some-thing)` is a reference to his part.\
+please click here to see different.>>\
+![git-diff](./screenshot/see-each-commit-diff.png)>>\
+![see detial](./screenshot/see-specific-commit-in-detial.png)
+(Suppose you are currently reading Chapter 12 and have just finished the database connection. You can find the corresponding part to view.\
+假設你目前看到第12章節 剛看完 database 連線 可找到對應的部分查看)
 
 As for why I do this, it is because through git, I can better see the program differences that appear every time a part of the course is completed.
 And I don't have to compare the differences in the entire project again. This saves me a lot of time.
 
-but I personally don’t recommend running the code together every time, because most of the time I don’t do it (this is partly due to efficiency issues, sometimes it takes too much time to follow it all, and I think the probability of encountering some parts in actual work is not very high and the efficiency is not high. In addition, I am not very friendly with English and other factors, which will take time).
+but I personally don’t recommend running the code together every time(Just my personal opinion), because most of the time I don’t do it (this is partly due to efficiency issues, sometimes it takes too much time to follow it all, and I think the probability of encountering some parts in actual work is not very high and the efficiency is not high. In addition, I am not very friendly with English and other factors, which will take time).
 
-The rest is more of my own personal writing and research.
+The remaining part is my own notes (please refer to the table of contents), and my notes contain a very large number of links (most of them refer to official documents and are in English and a few are in Chinese).
 
 By the way, there will be a `commit comment` in each Git commit, which is an additional comment I make through the web page after each `commit` action. You can also take a look if necessary(if helps).
 ![git-explain](./screenshot/explain-git-commit.png)
 
-中文 Chinese
+# how to use (Eng) 中文 Chinese
 基本上本篇的 repo 主要是參考這個人所釋出的 repo https://github.com/unsivilaudio/node.js-complete-guide-2024 。
 整體而言我將 他每次的 章節單元 透過 git 上傳。 commit 訊息中如果是類似這樣具體格式的 
-`27-01-connecting-client` `(chapter-number-doSomething)`則是參考他的部分。
-至於為什麼我這樣做是因為透過 git 的方式可以更好的看到每一次課程做完一部分段落的功能時，所顯現的程式差異。
-而我不用再次比對整份專案的不同。這樣讓我省下很多時間，但是我個人並不建議每次程式碼都跟著一起跑，因為絕大部分我並沒有這麼做(這部分原因是效率問題，有時候都跟著做實在是太花費時間，並且有些部分在實際工作上遇到的機率我想並不是很高效益也不大，加上我對英文沒有到非常友好等等的因素 這些都要時間)。
-其他以外的則是我自己個人額外多的撰寫與研究。
+`12-01-using-database-conn`
+`(chapter -number -do-Some-thing)` 則是參考他的部分。
+
+至於為什麼我這樣做是因為透過 git 的方式可以更好的看到每一次課程做完一部分段落的功能時，所顯現的程式差異。\
+而我不用再次比對整份專案的不同。這樣讓我省下很多時間，但是我個人並不建議每次程式碼都跟著一起跑(只是我的個人意見)，\
+因為絕大部分我並沒有這麼做(這部分原因是效率問題，有時候都跟著做實在是太花費時間，並且有些部分在實際工作上遇到的機率我想並不是很高效益也不大，加上我對英文沒有到非常友好等等的因素 這些都要時間)。
+
+後面剩下的部分則是我自己的筆記(可參看目錄)，並且我的筆記包含非常大量的 link (大多是參考到官方文檔且是英文 少許是中文)。\
 另外有些 每次的Git commit 中 會有 `commit comment` 是我在每次 `commit`動作 之後 額外透過網頁的註解，如果有需要也可以看看。
 
-the rest of part is my note.
 
+below the rest of part is my note.
 
-# 從 23 Payments  
-`const app = express();` 開始細看  
+# Table of contents
++ [how to use](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#how-to-use-eng)
++ [23 Payments](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#23-payments)
++ [24 Rest Api](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#24-rest-api)
++ [CORS Cross-Origin Resource Sharing 政策 剖析](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#cors-cross-origin-resource-sharing-%E6%94%BF%E7%AD%96-%E5%89%96%E6%9E%90)
++ [25 Rest Application](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#25-Rest-Application)
++ [26 async function](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#26-async-function)
++ [27 Websockets](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#27-Websockets)
++ [28 GraphQL](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#28-GraphQL)
++ [29 Deployment](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#29-Deployment)
++ [SSL TLS 運作機制(Operating mechanism)](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#ssl-tls-%E9%81%8B%E4%BD%9C%E6%A9%9F%E5%88%B6)
++ [SSL setting in node.js (windows)](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#ssl-setting-in-nodejs-windows)
++ [30 Testing](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#30-Testing)
++ [31 build tool & npm intro](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#31-build-tool--npm-intro)
++ [32 ES modules vs CommonJS](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#32-ES-modules-vs-CommonJS)
++ [33 NodeJS Typescript](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#33-NodeJS-Typescript)
++ [34 35 Deno (skip not popular)](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#34-35-deno-skip-not-popular)
+# 23 Payments  
+
+23 章節以前的絕大部分(3 ... 23ch)都在此處。 
+從23開始主要是因為 整個專案的完整性大約算是告一段落，不管是接觸到的各種概念和專案的架構等等。  
+Most of the chapters before Chapter 23 (3~23ch) are here. \
+Starting from 23 is mainly because the completeness of the entire project is relatively sufficient, whether it is the various concepts exposed, the structure of the project, etc.
+
 ## app.js
 + [express.js Eng](https://expressjs.com/)
 + [express.js zh-tw 繁體](https://expressjs.com/zh-tw/)
@@ -101,6 +133,8 @@ Mongoose 是一個基於 Node.js 的 MongoDB 物件數據模型 (Object Data Mod
 3.document can be saved to the database by calling its [save](https://mongoosejs.com/docs/api/model.html#Model.prototype.save()) method.  
 4.[querying](https://mongoosejs.com/docs/queries.html) syntax filter the data we want
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
+
 ## util/file.js
 + [node File System - unlink](https://nodejs.org/docs/latest/api/fs.html#fsunlinkpath-callback) fs.unlink(path, callback) 非同步 刪除指定路徑的檔案 ，callback 操作成功，物件將是 null
 
@@ -150,9 +184,11 @@ next() 一個重要的閘門機制讓流程繼續。
 `
 Notice the call above to next(). Calling this function invokes the next middleware function in the app. The next() function is not a part of the Node.js or Express API, but is the third argument that is passed to the middleware function. The next() function could be named anything, but by convention it is always named “next”. To avoid confusion, always use this convention.
 `
+
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 ## controllers/shop.js<br>
 Stripe 是一個全球領先的在線支付處理平台，專門為企業和開發者提供簡單而強大的支付解決方案。它讓各類型企業能夠輕鬆地接受和管理在線支付，包括信用卡、借記卡、銀行轉賬以及其他支付方式。Stripe 支持全球多個國家和地區的業務，並且提供了廣泛的 API 和工具，讓開發者能夠將支付功能集成到他們的網站、移動應用和其他線上平台中。
-+ [stripe](https://docs.stripe.com/) (台灣 中國區 無法註冊)
++ [stripe.com](https://docs.stripe.com/) (台灣 中國區 無法註冊)
 + + + 解決辦法[stripe 申請](https://www.youtube.com/results?search_query=stripe+%E7%94%B3%E8%AB%8B) (流程很多繁雜，尚未申請)
 + [pdfkit](https://pdfkit.org/) (pdfkit 在 20-6 Upload Download 中)
 
@@ -187,8 +223,7 @@ return tranporter.sendMail({
                 html: '<h1>You sucessfully signed up!</h1>',
             });
 ```
----
-
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 24 Rest Api
 
 node - HTTP - [response.setHeader(name,value)](https://nodejs.org/api/http.html#responsesetheadername-value) (注意這裡的是node 核心模組的 方法 而不是 express.js 中的 static 中的選項 setHeaders )並且它會設定並更改(或新增)http的標頭資訊，且此時res還並未回傳回去它只是進行設定。  
@@ -232,7 +267,7 @@ postButton.addEventlistener('click', () => {
     }
 })
 ```
-
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 ## CORS Cross-Origin Resource Sharing 政策 剖析:  
 為了安全問題，基本上瀏覽器會檢查 來源是否 相同，不同則需要額外設定。  
 怎樣算相同? => scheme(protocol), hostname (domain), and port 三者必須完全一致。  
@@ -254,6 +289,7 @@ postButton.addEventlistener('click', () => {
 + [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) how long the results of a preflight request can be cached(被瀏覽器快取存多久).  
 + Access-Control-Expose-Headers : 客戶端可以去存到那些額外的標頭。
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 25 Rest Application
 
 + [default error handler](https://expressjs.com/en/guide/error-handling.html#the-default-error-handler) 必須要有4個 才能確實辨別出 錯誤處理程序。  
@@ -313,6 +349,8 @@ fetch('http://localhost:8080/auth/status', {
 HTTP headers - [Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#authentication) - [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)  
 關於 為何約定俗成設定是=>> Bearer [Authentication schemes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes)
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
+
 # 26 async function
 [async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function#description)  
 An async function declaration creates an AsyncFunction object. Each time when an async function is called, it returns a new Promise which will be resolved with the value returned by the async function, or rejected with an exception uncaught within the async function.  
@@ -322,6 +360,8 @@ async/await 是`基於 Promise 的語法糖(簡化)`，它提供了一種更簡�
 async 函數：在函數前加上 async 關鍵字，這個函數就會返回一個 Promise。  
 await 關鍵字：只能在 async 函數中使用，await 用來等待一個 Promise 被解決（resolved）。它會暫停函數的執行，直到 Promise 返回結果，然後再繼續執行。  
 錯誤處理可以使用 try/catch 來處理。
+
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 
 # 27 Websockets
 + [git socket.io](https://github.com/socketio/socket.io)
@@ -349,7 +389,7 @@ Server 和 Client 之間盡可能以 WebSocket 連線 ， 並以 HTTP long-polli
 + 2. Socket.IO 本身(高級) : 讓你可以達到前面說的 額外功能的作用。  
 
 ### Server Initialization
-注意不同幻境下的配置不同，其中 http 與 express 的配置有點類似 差別在 後者多了 express 的實例當作引數使用。  
+注意不同環境下的配置不同，其中 http 與 express 的配置有點類似 差別在 後者多了 express 的實例當作引數使用。  
 + `使用`[Express](https://socket.io/docs/v4/server-initialization/#with-express)`之下的初始設定` 這裡專案透過另外將 socket 初始設定分離。
 ```js 
 const express = require("express");
@@ -407,12 +447,18 @@ io.on('connection', (socket) => { // ...不過這裡只是用來確認當有客�
 ```
 + 專案中主要為 後端向前端推送資料更新的情境 1 2步驟。即被動地監聽來自後端的通知（使用 socket.on('posts', ...)）。
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
+
 # 28 GraphQL
 + [GraphQL](https://graphql.org) 。[GraphQL 中文](https://graphql.cn/)  
 + Learn > Introduction > see [`the available training courses`](https://graphql.org/community/resources/training-courses/) (Community > Resources > Training Courses) :
 > 1. [`GraphQL Tutorials`](https://hasura.io/learn/graphql/intro-graphql/introduction/)(也有中文) 
 
 1. `GraphQL Tutorials`  
+
+here have A. B. C. D. E. part.\
+For part C, it is recommended to check the official website or teaching website. Just take a brief look.
+
 A. [`GraphQL是?`](https://hasura.io/learn/graphql/intro-graphql/what-is-graphql/)
 ![GraphQL 透過 HTTP 提供服務](https://graphql-engine-cdn.hasura.io/learn-hasura/assets/graphql-react/graphql-on-http.png)
 > request 透過字串 找尋 id 為 1 的資料 並且只要求 response 回傳 user 表的兩個欄位。  
@@ -622,6 +668,8 @@ import版本問題 [express-graphql graphql-http/lib/use/express](https://github
 
 + [28-01-first-query](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/e48121caf73828db27f658930c23b87bb604788f) 、 [28-02-mutation-schema](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/43a41142ac65fd6ea8f2867671833bfcc8fa6c63) 、 [28-03-mutation-resolver](https://github.com/leo41271/node.js-complete-guide-2024-use-commit/commit/b797dbde261b36cbcbfb69d3ead180a35cf118b6)
 
+
+Those with the same symbols in the pictures represent the same concept
 ![schema_resolvers](./screenshot/schema_resolvers(hint).png)
 
 E. [`GraphQL Clients`](https://hasura.io/learn/graphql/intro-graphql/graphql-client/)
@@ -699,6 +747,7 @@ Server 公開以下有關Query操作類型的內省查詢。
 query the field `__schema` field to find out the available `queries`, `mutations` and `types`  
 為開發者提供了一種方式來探索和理解 API 結構。
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 29 Deployment
 
 [How to read environment variables from Node.js](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs)
@@ -764,7 +813,7 @@ const accessLogStream = fs.createWriteStream(
 app.use(morgan('combined', { stream: accessLogStream }));
 // 有三個選項 immediate skip stream 專案只用第三個選項
 ```
-
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 ## SSL TLS 運作機制
 TLS 為新一代的SSL ， 但現今大家還是習慣稱呼 TLS 為SSL。  
 通信間為了 資料的安全性 我們會將其加密。  
@@ -785,6 +834,7 @@ ssl憑證會連接公鑰和伺服器 並發送該證書 到前端、到瀏覽器
 我們擁有該公鑰，該證書的一部分，我們將在這裡自己創建它，因為這是免費的，  
 然後客戶端透過該憑證接收該公鑰，現在客戶端可以加密它發送到伺服器的數據，伺服器可以使用該私鑰解密數據，並且只有該私鑰才能解密該數據。  
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 ### SSL setting in node.js (windows)
 MAC Linux 有預設的， windows 沒有。
 1. windows 需要自己下載。\
@@ -827,12 +877,13 @@ https.createServer(
 ```
 <hr />
 
-`Heroku 不在享有任何免費服務。` 替代品  [Render.com](https://render.com/)
+`Heroku 不在享有任何免費服務(not free)。` 替代品  [Render.com](https://render.com/)
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 30 Testing
 
-[TDD/BDD and Test Double](https://medium.com/hobo-engineer/ricky%E7%AD%86%E8%A8%98-tdd-bdd-and-test-double-76eee9e75092)(include Unit test concept)\
-[BDD/TDD/ATDD](https://ithelp.ithome.com.tw/m/articles/10305119)
+[TDD/BDD and Test Double 中文](https://medium.com/hobo-engineer/ricky%E7%AD%86%E8%A8%98-tdd-bdd-and-test-double-76eee9e75092)(include Unit test concept)\
+[BDD/TDD/ATDD 中文](https://ithelp.ithome.com.tw/m/articles/10305119)
 
 + TDD Test-driven Development (測試驅動開發):
 一種開發流程。TDD 是「先寫測試再開發程式」。
@@ -854,6 +905,7 @@ BDD 是 TDD 的進化版，除先寫測試再實作外，再多先寫規格，�
 + [Sinon](https://sinonjs.org/)\
   [sinon.stub](https://sinonjs.org/releases/v19/stubs/)
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 31 build tool & npm intro
 + npm CLI\
 [npm intro](https://docs.npmjs.com/about-npm)\
@@ -864,7 +916,7 @@ Configuring npm\
 [package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)\
 [package-lock.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
 
-https://semver.org/lang/zh-TW/
+[Semantic Versioning](https://semver.org/lang/zh-TW/) good (can set to English)
 
 build tool : 軟體開發中，協助自動化處理編譯、打包、轉換程式碼等過程的工具。(幫助開發者減少重複的手動工作，提升開發效率)
 npm 是 Node.js 的套件管理工具，也是目前非常普及的 Build 工具之一。它的核心功能是管理專案所需的各種套件或模組，並且能執行定義好的腳本（scripts）來自動化處理不同階段的工作。
@@ -876,6 +928,7 @@ npm 是 Node.js 的套件管理工具，也是目前非常普及的 Build 工具
 壓縮與優化：對代碼進行壓縮與優化，以減少檔案大小，加快網站載入速度。\
 自動化工作流：如自動化測試、CSS 預處理器編譯、文件壓縮等任務。
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 32 ES modules vs CommonJS
 兩者不能混用
 + [兩種主流的模組化，ES Modules與CommonJS](https://hackmd.io/@SkT7-27LSWWQi5G2DJBLkw/ryQ1w-rBi) (good)
@@ -910,6 +963,8 @@ import {myName,myAge,myJob,myLocation} from './es6modules'
 import * as all from './es6modules' // 如果不想一個一寫寫出來的話
 console.log(all.myName)// Jack // 如何使用
 ```
+
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 33 NodeJS Typescript
 `npm install typescript --save-dev`(local)>npx tsc --init(local 下 都要有npx 前置指令)\
 `npm install -g typescript` (global)>tsc --init
@@ -926,6 +981,7 @@ import express from 'express' // 在 ts 中是可行的但 tsc 後一樣會是 r
 ```
 `const buttonElement = document.querySelector('button')!;` : 邏輯上可以有Null，但我們知道實際上不會有，表示回傳值非 null
 
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
 # 34 35 Deno (skip not popular)
 
 開發者使用率：在全球技術調查（如 Stack Overflow）的數據中，Deno 的使用率相對較低，僅佔不到 5% 的市場份額，而 Node.js 則佔了超過 30%。台灣的情況大致相似，Node.js 仍是大多數企業的首選後端技術。
@@ -933,5 +989,8 @@ import express from 'express' // 在 ts 中是可行的但 tsc 後一樣會是 r
 求職平台數據：根據台灣知名求職平台（如 104 人力銀行）的資料，在 2024 年上半年，與 Deno 相關的工作機會非常稀少，幾乎可以忽略不計。相比之下，與 Node.js 相關的職缺約有數百個，反映了該技術的市場需求。
 
 <hr />
-+ markdown 的語法筆記   
++ markdown 的語法筆記 
+
 [Markdown 語法大全，範例模板](https://gitlab.com/GammaRayStudio/DevDoc/-/blob/master/Markdown/001.markdown-template.md)
+
+[top](https://github.com/leo41271/node.js-complete-guide-2024-use-commit?tab=readme-ov-file#table-of-contents)
