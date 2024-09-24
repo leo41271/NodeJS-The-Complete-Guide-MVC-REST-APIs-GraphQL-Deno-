@@ -64,6 +64,11 @@ Starting from 23 is mainly because the completeness of the entire project is rel
 
 ## app.js
 + [express.js Eng](https://expressjs.com/)
+
+63. Express.js - Looking Behind the Scenes (如何找 該定義方法 how to find define)  
+https://github.com/expressjs/express/blob/master/lib/response.js search res.send()  
+https://github.com/expressjs/express/blob/master/lib/application.js search app.listen()  
+
 + [express.js zh-tw 繁體](https://expressjs.com/zh-tw/)
 + [express.js cn 簡體](https://www.expressjs.com.cn/)
 + + [app.use (5x)](https://expressjs.com/en/5x/api.html#app.use)(掛載指定的中間件 middleware 函數)
@@ -125,7 +130,9 @@ const {
 Mongoose 是一個基於 Node.js 的 MongoDB 物件數據模型 (Object Data Modeling, ODM) 庫，它提供了一個在 Node.js 應用中對 MongoDB 進行操作的簡單而強大的方式。Mongoose 讓開發者可以用類似 SQL 的方式去定義和操作 MongoDB 的文檔數據模型，並且提供了豐富的功能來幫助處理數據的驗證、查詢、關聯等。
 + [mongoose homepage](https://mongoosejs.com/)
 + [git mongoose](https://github.com/Automattic/mongoose)
-+ + [Support 問問題相關的支援](https://github.com/Automattic/mongoose?tab=readme-ov-file#support)  
++ + [Support 問問題相關的支援](https://github.com/Automattic/mongoose?tab=readme-ov-file#support)(術語詞彙表)  
++ [mongoDB Glossary](https://www.mongodb.com/docs/manual/reference/glossary/)  
++ [BSON documents](https://www.mongodb.com/docs/manual/core/document/#std-label-bson-document-format)  
 + [mongoosejs quick start](https://mongoosejs.com/docs/index.html) :  
 1.With Mongoose, everything is derived from a [Schema](https://mongoosejs.com/docs/guide.html).  
 1.5 Functions added to the `methods` property of a schema.  
